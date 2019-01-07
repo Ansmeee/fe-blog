@@ -60,6 +60,10 @@ export default {
   background-color: #f5f7f9;
 }
 
+a {
+    text-decoration: none;
+}
+
 .container {
     width: 1200px;
     height: 100%;
