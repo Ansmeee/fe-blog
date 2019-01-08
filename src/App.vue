@@ -68,7 +68,7 @@ a {
 
 .container {
     width: 1200px;
-    height: 100%;
+    min-height: 800px;
     text-align: center;
     margin: auto;
 }

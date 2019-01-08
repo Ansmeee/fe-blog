@@ -1,9 +1,11 @@
 <template>
     <div class="userinfo">
         <div class="user-img">
-            <img height="150px" width="150px" :src="user.icon">
+            <router-link :to="{ name: 'blogger' }">
+                <img height="150px" width="150px" :src="user.icon">
+            </router-link>
         </div>
-        <p><b>{{ user.name }}</b></p>
+        <p><router-link :to="{ name: 'blogger' }"><b>{{ user.name }}</b></router-link></p>
         <div class="user-blog">
             <router-link v-for="blog in blogs" :key="blog.id" class="user-blog-outline" :to="{ name: blog.url }">
                 <span>{{ blog.title }}</span>

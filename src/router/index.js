@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home'
 import Class from '@/views/Class'
 import File from '@/views/File'
+import Blogger from '@/views/Blogger'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
             path: '/file',
             name: 'file',
             component: File
+        },
+        {
+            path: '/blogger',
+            name: 'blogger',
+            component: Blogger
         }
     ]
 })
