@@ -1,29 +1,41 @@
 <template>
     <div class="userinfo">
         <div class="user-img">
-            <img height="150px" width="150px" src="../assets/logo.png">
+            <img height="150px" width="150px" :src="user.icon">
         </div>
-        <p><b>Ansme</b></p>
+        <p><b>{{ user.name }}</b></p>
         <div class="user-blog">
-            <div>
-                <a href="">
-                    <span>日志</span>
-                    <span>200</span>
-                </a>
-            </div>
-            <div>
-                <a href="">
-                    <span>分类</span>
-                    <span>20</span>
-                </a>
-            </div>
+            <router-link v-for="blog in blogs" class="user-blog-outline" :to="{ name: blog.url }">
+                <span>{{ blog.title }}</span>
+                <span>{{ blog.total }}</span>
+            </router-link>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'UserInfo'
+    name: 'UserInfo',
+    data () {
+        return {
+            user: {
+                name: 'Ansme',
+                icon: 'https://upload.jianshu.io/users/upload_avatars/10524315/5295422b-5b23-45c3-91cb-932c69fd8f11.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240'
+            },
+            blogs: [
+                {
+                    title: '日志',
+                    total: '100',
+                    url: 'myblog'
+                },
+                {
+                    title: '分类',
+                    total: '10',
+                    url: 'myclass'
+                }
+            ]
+        }
+    }
 }
 </script>
 
@@ -31,11 +43,20 @@ export default {
 .user-img {
     overflow: hidden;
     text-align: center;
-    border-radius: 80px;
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+    border: 1px solid #ddd;
 }
 
 .user-blog {
     overflow: hidden;
     text-align: center;
+    font-size: 14px;
+}
+
+.user-blog-outline {
+    display: block;
 }
 </style>

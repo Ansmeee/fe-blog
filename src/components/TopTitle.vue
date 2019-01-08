@@ -1,26 +1,14 @@
 <template>
     <div class="toptitle">
         <div class="blog-author">
-            <b><a class="blog-title" :href="myhost">{{ myTitle }}</a></b>
+            <b><a class="blog-title" :href="myHost">{{ myTitle }}</a></b>
         </div>
         <div class="side-bar">
             <el-menu class="el-menu-vertical-demo">
-                <router-link :to="{ name: 'home' }">
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">首页</span>
-                    </el-menu-item>
-                </router-link>
-                <router-link :to="{ name: 'class' }">
-                    <el-menu-item index="3">
-                        <i class="el-icon-document"></i>
-                        <span slot="title">分类</span>
-                    </el-menu-item>
-                </router-link>
-                <router-link :to="{ name: 'file' }">
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">归档</span>
+                <router-link v-for="menu in menus" :to="{ name: menu.url }">
+                    <el-menu-item index="1">
+                        <i :class="menu.icon"></i>
+                        <span slot="title">{{ menu.title }}</span>
                     </el-menu-item>
                 </router-link>
             </el-menu>
@@ -39,7 +27,24 @@ export default {
     data () {
         return {
             myTitle: "Ansme's Blog",
-            myhost: 'http://ansme.cn'
+            myHost: 'http://ansme.cn',
+            menus: [
+                {
+                    title: '首页',
+                    url: 'home',
+                    icon: 'el-icon-menu'
+                },
+                {
+                    title: '分类',
+                    url: 'class',
+                    icon: 'el-icon-document'
+                },
+                {
+                    title: '归档',
+                    url: 'file',
+                    icon: 'el-icon-setting'
+                }
+            ]
         }
     }
 }
