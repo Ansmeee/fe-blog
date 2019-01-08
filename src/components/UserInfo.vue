@@ -5,7 +5,7 @@
         </div>
         <p><b>{{ user.name }}</b></p>
         <div class="user-blog">
-            <router-link v-for="blog in blogs" class="user-blog-outline" :to="{ name: blog.url }">
+            <router-link v-for="blog in blogs" :key="blog.id" class="user-blog-outline" :to="{ name: blog.url }">
                 <span>{{ blog.title }}</span>
                 <span>{{ blog.total }}</span>
             </router-link>

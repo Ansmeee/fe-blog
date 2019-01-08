@@ -5,7 +5,7 @@
         </div>
         <div class="side-bar">
             <el-menu class="el-menu-vertical-demo">
-                <router-link v-for="menu in menus" :to="{ name: menu.url }">
+                <router-link v-for="menu in menus" :key="menu.id" :to="{ name: menu.url }">
                     <el-menu-item index="1">
                         <i :class="menu.icon"></i>
                         <span slot="title">{{ menu.title }}</span>
