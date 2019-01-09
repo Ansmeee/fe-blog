@@ -2,28 +2,44 @@
   <div class="blogger">
       <el-card class="blogger-info">
           <p class="blogger-name"><b>{{ user.name }}</b><span></span></p>
-          <p class="blogger-info-text-left entry-name">个人介绍</p>
-          <div class="blogger-info-text-left">
+          <p class="text-left entry-name">个人介绍</p>
+          <div class="text-left">
               {{ user.motto }}
           </div>
-          <p class="blogger-info-text-left entry-name">兴趣爱好</p>
-          <div class="blogger-info-text-left">
+          <p class="text-left entry-name">兴趣爱好</p>
+          <div class="text-left">
               {{ user.hobby }}
           </div>
-          <p class="blogger-info-text-left entry-name">我的足迹</p>
-          <div class="blogger-info-text-left">
-              {{ user.trips }}
-          </div>
+      </el-card>
+      <el-card class="blogger-trips">
+          <p class="text-left entry-name">我的足迹</p>
+          <el-row class="blogger-trip" v-for="trip in user.trips" :key="trip.id">
+              <el-col :span="9">
+                  <div class="trip-img">
+                      <img width="300px" height="200px" :src="trip.img">
+                  </div>
+              </el-col>
+              <el-col :span="15">
+                  <div class="trip-title">{{ trip.title }}</div>
+                  <div class="trip-summary">
+                      <span class="trip-date"><i class="iconfont icon-rili"></i> {{ trip.date }}</span>
+                      <span class="trip-location"><i class="iconfont icon-dizhi"></i> {{ trip.location }}</span>
+                  </div>
+                  <div class="trip-content">{{ trip.content }}</div>
+              </el-col>
+          </el-row>
       </el-card>
   </div>
 </template>
 
 <script>
-import { Card } from 'element-ui';
+import { Card, Row, Col } from 'element-ui';
 export default {
     name: 'Blogger',
     components: {
-        [Card.name]: Card
+        [Card.name]: Card,
+        [Row.name]: Row,
+        [Col.name]: Col
     },
     data () {
         return {
@@ -31,7 +47,24 @@ export default {
                 name: 'Ansme',
                 motto: '人生短暂，别留遗憾',
                 hobby: '热爱编程，喜欢旅游，喜欢摄影，喜欢享受生命中精彩的每个瞬间',
-                trips: '我的足迹'
+                trips: [
+                    {
+                        id: 1,
+                        img: "https://upload-images.jianshu.io/upload_images/10524315-ee17d07390c435b7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000",
+                        title: "灯光下的小单车",
+                        date: "2018-12-06",
+                        location: "天津",
+                        content: "灯光下的小单车。。。"
+                    },
+                    {
+                        id: 2,
+                        img: "https://upload-images.jianshu.io/upload_images/10524315-7d61823092297748.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000",
+                        title: "生活不止眼前的苟且",
+                        date: "20180-11-18",
+                        location: "天津",
+                        content: "生活不止眼前的苟且，还有随手一拍的惊喜"
+                    }
+                ]
             }
         }
     }
@@ -44,11 +77,47 @@ export default {
     font-size: 24px;
 }
 
-.blogger-info-text-left {
+.text-left {
     text-align: left;
 }
 
 .entry-name {
     color: #969696;
+}
+
+.blogger-trips {
+    margin-top: 10px;
+}
+
+.blogger-trip {
+    margin: 10px auto;
+}
+
+.trip-img {
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.trip-title {
+    text-align: left;
+    margin: 10px auto;
+    font-size: 20px;
+}
+
+.trip-summary {
+    text-align: left;
+    font-size: 14px;
+    color: #969696;
+    margin: 10px auto;
+}
+
+.trip-location {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.trip-content {
+    text-align: left;
 }
 </style>
