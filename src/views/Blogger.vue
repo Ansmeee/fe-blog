@@ -2,11 +2,15 @@
   <div class="blogger">
       <el-card class="blogger-info">
           <p class="blogger-name"><b>{{ user.name }}</b><span></span></p>
-          <p class="text-left entry-name">个人介绍</p>
+          <p class="text-left entry-name">
+              <span>个人介绍</span>
+          </p>
           <div class="text-left">
               {{ user.motto }}
           </div>
-          <p class="text-left entry-name">兴趣爱好</p>
+          <p class="text-left entry-name">
+              <span>兴趣爱好</span>
+          </p>
           <div class="text-left">
               {{ user.hobby }}
           </div>
@@ -22,8 +26,14 @@
               <el-col :span="15">
                   <div class="trip-title">{{ trip.title }}</div>
                   <div class="trip-summary">
-                      <span class="trip-date"><i class="iconfont icon-rili"></i> {{ trip.date }}</span>
-                      <span class="trip-location"><i class="iconfont icon-dizhi"></i> {{ trip.location }}</span>
+                      <span class="trip-date">
+                          <span><i class="iconfont icon-rili font-14"></i></span>
+                          <span>{{ trip.date }}</span>
+                      </span>
+                      <span class="trip-location">
+                          <span><i class="iconfont icon-dingwei font-14"></i></span>
+                          <span>{{ trip.location }}</span>
+                      </span>
                   </div>
                   <div class="trip-content">{{ trip.content }}</div>
               </el-col>
@@ -90,7 +100,7 @@ export default {
 }
 
 .blogger-trip {
-    margin: 10px auto;
+    margin: 20px auto;
 }
 
 .trip-img {
@@ -119,5 +129,9 @@ export default {
 
 .trip-content {
     text-align: left;
+}
+
+.font-14 {
+    font-size: 14px;
 }
 </style>

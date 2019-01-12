@@ -14,11 +14,9 @@
                     </el-card>
                 </el-col>
                 <el-col :span="19">
-                    <el-card>
-                        <el-main>
-                            <router-view/>
-                        </el-main>
-                    </el-card>
+                    <el-main>
+                        <router-view/>
+                    </el-main>
                 </el-col>
             </el-row>
         </div>

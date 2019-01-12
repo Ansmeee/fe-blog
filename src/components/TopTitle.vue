@@ -38,11 +38,6 @@ export default {
                     title: '分类',
                     url: 'class',
                     icon: 'el-icon-document'
-                },
-                {
-                    title: '归档',
-                    url: 'file',
-                    icon: 'el-icon-setting'
                 }
             ]
         }
