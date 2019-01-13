@@ -1,7 +1,7 @@
 <template>
     <div class="toptitle">
         <div class="blog-author">
-            <b><a class="blog-title" :href="myHost">{{ myTitle }}</a></b>
+            <b><a class="bloger-title" :href="myHost">{{ myTitle }}</a></b>
         </div>
         <div class="side-bar">
             <el-menu class="el-menu-vertical-demo">
@@ -27,7 +27,7 @@ export default {
     data () {
         return {
             myTitle: "Ansme's Blog",
-            myHost: 'http://ansme.cn',
+            myHost: 'http://ansmee.cn',
             menus: [
                 {
                     title: '首页',
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style>
-.blog-title {
+.bloger-title {
     color: #fff;
 }
 .blog-author {
