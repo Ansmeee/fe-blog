@@ -27,7 +27,7 @@ export default {
     data () {
         return {
             myTitle: "Ansme's Blog",
-            myHost: 'http://ansmee.cn',
+            myHost: 'http://blog.ansmee.cn',
             menus: [
                 {
                     title: '首页',
