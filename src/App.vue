@@ -4,14 +4,9 @@
         <div class="container">
             <el-row :gutter="12">
                 <el-col :span="5">
-                    <el-card body-style="padding:0px">
-                        <el-aside width="100%" class="siderbar">
-                            <top-title></top-title>
-                        </el-aside>
-                    </el-card>
-                    <el-card class="user-info-card">
-                        <user-info></user-info>
-                    </el-card>
+                    <el-aside width="100%" class="siderbar">
+                        <side-bar></side-bar>
+                    </el-aside>
                 </el-col>
                 <el-col :span="19">
                     <el-main>
@@ -25,22 +20,19 @@
 </template>
 
 <script>
-import TopTitle from './components/TopTitle'
-import UserInfo from './components/UserInfo'
+import SideBar from './components/SideBar'
 
-import {Container, Aside, Main, Row, Col, Card} from 'element-ui'
+import {Container, Aside, Main, Row, Col} from 'element-ui'
 
 export default {
   name: 'App',
   components: {
-      'TopTitle': TopTitle,
-      'UserInfo': UserInfo,
+      'SideBar': SideBar,
       [Container.name]: Container,
       [Aside.name]: Aside,
       [Main.name]: Main,
       [Row.name]: Row,
-      [Col.name]: Col,
-      [Card.name]: Card
+      [Col.name]: Col
   }
 }
 </script>
@@ -69,15 +61,5 @@ a {
     min-height: 800px;
     text-align: center;
     margin: auto;
-}
-
-.siderbar {
-    overflow: hidden;
-}
-.el-menu {
-    border-right: none;
-}
-.user-info-card {
-    margin-top: 10px;
 }
 </style>
