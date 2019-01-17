@@ -5,9 +5,19 @@
             class="blog-search-input"
             placeholder="请输入内容"
             size="medium"
+            @change="blogSearchValueChange"
+            @keyup.enter.native="clickSearchBtn"
           >
-              <el-button class="blog-search-btn" slot="append"><i class="iconfont icon-sousuo blog-search-icon"></i></el-button>
           </el-input>
+          <el-button
+            type="primary"
+            size="medium"
+            native-type="submit"
+            class="blog-search-btn"
+            @click="clickSearchBtn"
+            >
+            <i class="iconfont icon-sousuo"></i>
+          </el-button>
       </el-card>
       <el-card class="blog-list">
           <p class="blog-item" v-for="blog in blogs.list" :key="blog.id">
@@ -20,14 +30,16 @@
           background
           layout="prev, pager, next"
           :page-size="5"
-          :total="blogs.total">
+          :total="blogs.total"
+          @current-change="this.currentPageChange">
       </el-pagination>
   </div>
 </template>
 
 <script>
-import { Card, Menu, MenuItem, Pagination, Input } from 'element-ui'
+import { Card, Menu, MenuItem, Pagination, Input, Button } from 'element-ui'
 
+import { Http } from '../api/http.js'
 export default {
     name: 'Class',
     components: {
@@ -35,52 +47,56 @@ export default {
         [Menu.name]: Menu,
         [MenuItem.name]: MenuItem,
         [Pagination.name]: Pagination,
-        [Input.name]: Input
+        [Input.name]: Input,
+        [Button.name]: Button
     },
     data () {
         return {
-            activeIndex: 1,
-            types: [
-                {
-                    id: 1,
-                    name: 'nginx'
-                },
-                {
-                    id: 2,
-                    name: 'mysql'
-                },
-                {
-                    id: 3,
-                    name: 'php'
-                },
-                {
-                    id: 4,
-                    name: 'redis'
-                }
-            ],
+            blogSearchValue: '',
             blogs: {
-                total: 5,
-                list: [
-                    {
-                        id: 1,
-                        title: "docker 容器的使用"
-                    },
-                    {
-                        id: 2,
-                        title: "mysql 优化三步骤"
-                    },
-                    {
-                        id: 3,
-                        title: "Nginx 之反向代理"
-                    }
-                ]
+                total: 0,
+                list: []
             }
+        }
+    },
+    mounted () {
+        this.getClassList()
+    },
+    methods: {
+        blogSearchValueChange ( searchInputValue ) {
+            this.blogSearchValue = searchInputValue
+        },
+
+        clickSearchBtn () {
+            let keywords =  this.blogSearchValue
+            this.getClassList(keywords)
+        },
+
+        currentPageChange ( currentPage ) {
+            let keywords = this.blogSearchValue
+            this.getClassList(keywords, currentPage)
+        },
+
+        getClassList(keywords = '', start = 1) {
+            let perpage = 10
+            let params = {
+                'keywords': keywords,
+                'start': start,
+                'perpage': perpage
+            }
+            Http('GET', 'classList', params).then( res => {
+                this.blogs.total = res.data.content.total
+                this.blogs.list  = res.data.content.list
+            })
         }
     }
 }
 </script>
 
 <style >
+.class {
+    min-height: 450px;
+}
 .blog-search-bar {
     text-align: left;
 }
@@ -88,16 +104,9 @@ export default {
     width: 300px;
 }
 .blog-search-btn {
-    cursor: pointer;
-    line-height: 33px;
+    margin-left: 20px;
 }
-.blog-search-icon {
-    display: inline-block;
-    height: 34px;
-    width: 50px;
-    text-align: center;
-    margin: auto -20px;
-}
+
 .blog-list {
     margin: 20px auto;
 }
