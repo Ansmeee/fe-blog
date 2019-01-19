@@ -36,6 +36,7 @@
 <script>
 import { Card, Button, Popover } from 'element-ui'
 
+import { Http } from '../api/http.js'
 export default {
     name: 'Blog',
     components: {
@@ -45,14 +46,19 @@ export default {
     },
     data () {
         return {
-            blog: {
-                id: 1,
-                title: "Docker基础：镜像、容器、仓库",
-                date: "2018-03-01",
-                type: "Docker",
-                content: "<h3>什么是Docker</h3> </br> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Docker 是一个 开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源。</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。<strong>”一次封装，到处运行“</strong> </p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;解决了运行环境和配置问题软件容器，方便做持续集成并有助于整体发布的容器虚拟化技术。</p>"
-            }
+            blog: {}
         }
+    },
+    mounted () {
+        let id = this.$route.params.id
+        let params = {"id": id}
+        Http('GET', 'blog', params).then ( res => {
+            if (res.data.code === 200) {
+                this.blog = res.data.content.blog
+            } else {
+                
+            }
+        })
     }
 }
 </script>

@@ -3,6 +3,7 @@ export default {
     path: {
         "info": "info",
         "blogList": "blog/list",
-        "classList": "class/list"
+        "classList": "class/list",
+        "blog": "blog"
     }
 }
