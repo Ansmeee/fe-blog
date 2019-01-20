@@ -14,27 +14,29 @@
           <div class="blog-content" v-html="blog.content">
           </div>
           <p class="blog-comment">
-              <el-popover
-                placement="top"
-                width="50"
-                trigger="hover"
-                content="Thanks for your encouragement">
-                <el-button class="blog-comment-button" slot="reference" type="success" circle><i class="iconfont icon-good"></i></el-button>
-              </el-popover>
-              <el-popover
-                placement="top"
-                width="50"
-                trigger="hover"
-                content="I will keep working hard">
-                <el-button class="blog-comment-button" slot="reference" type="danger" circle><i class="iconfont icon-bad"></i></el-button>
-              </el-popover>
+              <el-button
+                class="blog-comment-button"
+                type="success"
+                circle
+                @click="encourage"
+              >
+                <i class="iconfont icon-good"></i>
+              </el-button>
+              <el-button
+                class="blog-comment-button"
+                type="danger"
+                circle
+                @click="workHard"
+              >
+                <i class="iconfont icon-bad"></i>
+              </el-button>
           </p>
       </el-card>
   </div>
 </template>
 
 <script>
-import { Card, Button, Popover } from 'element-ui'
+import { Card, Button, Popover, Message } from 'element-ui'
 
 import { Http } from '../api/http.js'
 export default {
@@ -42,11 +44,32 @@ export default {
     components: {
         [Card.name]: Card,
         [Button.name]: Button,
-        [Popover.name]: Popover
+        [Popover.name]: Popover,
+        [Message.name]: Message
     },
     data () {
         return {
             blog: {}
+        }
+    },
+    methods: {
+        encourage () {
+            let msg = 'Thanks for your encouragement'
+            this.showMgs(msg, 'success')
+        },
+
+        workHard() {
+            let msg = 'I will keep working hard'
+            this.showMgs(msg, 'success')
+        },
+
+        showMgs(msg = '', type = '') {
+            Message({
+                message: msg,
+                type: type,
+                center: true,
+                showClose: true
+            })
         }
     },
     mounted () {
@@ -56,7 +79,8 @@ export default {
             if (res.data.code === 200) {
                 this.blog = res.data.content.blog
             } else {
-                
+                let msg = res.data.msg || '请求错误，请重试'
+                this.showMgs(msg, 'error')
             }
         })
     }
