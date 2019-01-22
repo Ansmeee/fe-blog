@@ -1,23 +1,23 @@
 <template>
-  <div class="blogger">
+  <div v-if="this.blogger.id" class="blogger">
       <el-card class="blogger-info">
-          <p class="blogger-name"><b>{{ user.name }}</b><span></span></p>
+          <p class="blogger-name"><b>{{ blogger.name }}</b><span></span></p>
           <p class="text-left entry-name">
               <span>个人介绍</span>
           </p>
           <div class="text-left">
-              {{ user.motto }}
+              {{ blogger.motto }}
           </div>
           <p class="text-left entry-name">
               <span>兴趣爱好</span>
           </p>
           <div class="text-left">
-              {{ user.hobby }}
+              {{ blogger.hobby }}
           </div>
       </el-card>
       <el-card class="blogger-trips">
           <p class="text-left entry-name">我的足迹</p>
-          <el-row class="blogger-trip" v-for="trip in user.trips" :key="trip.id">
+          <el-row class="blogger-trip" v-for="trip in blogger.trips" :key="trip.id">
               <el-col :span="9">
                   <div class="trip-img">
                       <img width="300px" height="200px" :src="trip.img">
@@ -40,42 +40,45 @@
           </el-row>
       </el-card>
   </div>
+  <err-page v-else></err-page>
 </template>
 
 <script>
 import { Card, Row, Col } from 'element-ui';
+
+import { Http } from '../api/http.js'
+import ErrPage from '../components/ErrPage'
 export default {
     name: 'Blogger',
     components: {
+        'ErrPage': ErrPage,
         [Card.name]: Card,
         [Row.name]: Row,
         [Col.name]: Col
     },
     data () {
         return {
-            user: {
-                name: 'Ansme',
-                motto: '人生短暂，别留遗憾',
-                hobby: '热爱编程，喜欢旅游，喜欢摄影，喜欢享受生命中精彩的每个瞬间',
-                trips: [
-                    {
-                        id: 1,
-                        img: "https://upload-images.jianshu.io/upload_images/10524315-ee17d07390c435b7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000",
-                        title: "灯光下的小单车",
-                        date: "2018-12-06",
-                        location: "天津",
-                        content: "灯光下的小单车。。。"
-                    },
-                    {
-                        id: 2,
-                        img: "https://upload-images.jianshu.io/upload_images/10524315-7d61823092297748.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000",
-                        title: "生活不止眼前的苟且",
-                        date: "20180-11-18",
-                        location: "天津",
-                        content: "生活不止眼前的苟且，还有随手一拍的惊喜"
-                    }
-                ]
+            blogger: {}
+        }
+    },
+    mounted () {
+        Http('GET', 'blogger').then(res => {
+            if (res.data.code === 200) {
+                this.blogger = res.data.content
+            } else {
+                let msg = res.data.msg || '请求错误，请重试'
+                this.showMgs(msg, 'error')
             }
+        })
+    },
+    methods: {
+        showMgs(msg = '', type = '') {
+            Message({
+                message: msg,
+                type: type,
+                center: true,
+                showClose: true
+            })
         }
     }
 }

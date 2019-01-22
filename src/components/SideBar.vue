@@ -55,7 +55,7 @@ export default {
     },
     methods: {
         getInfo () {
-            Http('GET', 'info').then(res => {
+            Http('GET', 'bloggerInfo').then(res => {
                 this.user = res.data.content.user
                 this.info = res.data.content.info
             })
