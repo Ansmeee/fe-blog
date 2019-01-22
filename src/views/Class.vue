@@ -1,5 +1,5 @@
 <template>
-  <div class="class">
+  <div v-if="this.blogs.total" class="class">
       <el-card class="blog-search-bar">
           <el-input
             class="blog-search-input"
@@ -34,15 +34,18 @@
           @current-change="this.currentPageChange">
       </el-pagination>
   </div>
+  <err-page v-else></err-page>
 </template>
 
 <script>
 import { Card, Menu, MenuItem, Pagination, Input, Button } from 'element-ui'
 
 import { Http } from '../api/http.js'
+import ErrPage from '../components/ErrPage'
 export default {
     name: 'Class',
     components: {
+        'ErrPage': ErrPage,
         [Card.name]: Card,
         [Menu.name]: Menu,
         [MenuItem.name]: MenuItem,

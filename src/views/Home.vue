@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div v-if="this.blogs.total" class="home">
       <el-card v-for="blog in blogs.list" :key="blog.id" class="blog-card">
           <p class="home-blog-title">{{ blog.title }}</p>
           <p class="home-blog-info">
@@ -25,21 +25,26 @@
           layout="prev, pager, next"
           :page-size="5"
           :total="blogs.total"
-          @current-change="this.currentPageChange">
+          @current-change="this.currentPageChange"
+       >
       </el-pagination>
   </div>
+  <err-page v-else></err-page>
 </template>
 
 <script>
-import { Card, Button, Pagination } from 'element-ui'
-
+import { Card, Button, Pagination,Message } from 'element-ui'
 import { Http } from '../api/http.js'
+import ErrPage from '../components/ErrPage'
+
 export default {
    name: 'Home',
    components: {
+       'ErrPage': ErrPage,
        [Card.name]: Card,
        [Button.name]: Button,
-       [Pagination.name]: Pagination
+       [Pagination.name]: Pagination,
+       [Message.name]: Message
    },
    data () {
        return {
@@ -53,6 +58,15 @@ export default {
       this.getBlogs()
   },
   methods: {
+      showMgs(msg = '', type = '') {
+          Message({
+              message: msg,
+              type: type,
+              center: true,
+              showClose: true
+          })
+      },
+
       currentPageChange ( currentPage ) {
           this.getBlogs(currentPage)
       },
@@ -65,8 +79,13 @@ export default {
           }
 
           Http('GET', 'blogList', params).then(res => {
-              this.blogs.total = res.data.content.total
-              this.blogs.list  = res.data.content.list
+              if (res.data.code === 200) {
+                  this.blogs.total = res.data.content.total
+                  this.blogs.list  = res.data.content.list
+              } else {
+                  let msg = res.data.msg || '请求错误，请重试'
+                  this.showMgs(msg, 'error')
+              }
           })
       }
   }

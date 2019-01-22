@@ -1,5 +1,5 @@
 <template>
-  <div class="blog">
+  <div v-if="this.blog" class="blog">
       <el-card class="blog-card">
           <p class="blog-title">{{ blog.title }}</p>
           <p class="blog-info">
@@ -33,15 +33,18 @@
           </p>
       </el-card>
   </div>
+  <err-page v-else></err-page>
 </template>
 
 <script>
 import { Card, Button, Popover, Message } from 'element-ui'
 
 import { Http } from '../api/http.js'
+import ErrPage from '../components/ErrPage'
 export default {
     name: 'Blog',
     components: {
+        'ErrPage': ErrPage,
         [Card.name]: Card,
         [Button.name]: Button,
         [Popover.name]: Popover,
