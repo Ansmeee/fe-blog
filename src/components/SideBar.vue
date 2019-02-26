@@ -2,7 +2,7 @@
     <div class="sidebar">
         <el-card class="toptitle" body-style="padding:0px">
             <div class="blog-author">
-                <b><a class="bloger-title" :href="info.myHost">{{ info.myTitle }}</a></b>
+                <b><a class="bloger-title" :href="info.myHost">{{ info.name }}'s Blog</a></b>
             </div>
             <div class="side-bar">
                 <el-menu class="el-menu-vertical-demo">
@@ -19,12 +19,12 @@
         <el-card class="userinfo">
             <div class="user-img">
                 <router-link :to="{ name: 'blogger' }">
-                    <img height="150px" width="150px" :src="user.icon">
+                    <img height="150px" width="150px" :src="info.icon">
                 </router-link>
             </div>
-            <p><router-link :to="{ name: 'blogger' }"><b>{{ user.name }}</b></router-link></p>
+            <p><router-link :to="{ name: 'blogger' }"><b>{{ info.name }}</b></router-link></p>
             <div class="user-blog">
-                <router-link v-for="blog in user.blogs" :key="blog.id" class="user-blog-outline" :to="{ name: blog.url }">
+                <router-link v-for="blog in info.blogs" :key="blog.id" class="user-blog-outline" :to="{ name: blog.url }">
                     <span>{{ blog.title }}</span>
                     <span>{{ blog.total }}</span>
                 </router-link>
@@ -46,7 +46,6 @@ export default {
     },
     data () {
         return {
-            user: {},
             info: {}
         }
     },
@@ -56,8 +55,7 @@ export default {
     methods: {
         getInfo () {
             Http('GET', 'bloggerInfo').then(res => {
-                this.user = res.data.content.user
-                this.info = res.data.content.info
+                this.info = res.data.info
             })
         }
     }

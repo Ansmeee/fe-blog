@@ -14,7 +14,7 @@
           <div class="home-blog-summary" v-html="blog.summary">
           </div>
           <p class="home-blog-more"><router-link :to="{ name: 'blog', params: { id: blog.id } }">
-              <el-button type="info" size="medium">
+              <el-button type="primary" size="medium">
                   <span>阅读全文</span>
                   <span><i class="iconfont icon-xia"></i></span>
               </el-button>
@@ -82,6 +82,7 @@ export default {
               if (res.data.code === 200) {
                   this.blogs.total = res.data.content.total
                   this.blogs.list  = res.data.content.list
+                  console.log(this.blogs.total)
               } else {
                   let msg = res.data.msg || '请求错误，请重试'
                   this.showMgs(msg, 'error')
