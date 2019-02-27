@@ -80,7 +80,8 @@ export default {
         let params = {"id": id}
         Http('GET', 'blog', params).then ( res => {
             if (res.data.code === 200) {
-                this.blog = res.data.content.blog
+                this.blog = res.data.blog
+                console.log(res.data.blog)
             } else {
                 let msg = res.data.msg || '请求错误，请重试'
                 this.showMgs(msg, 'error')
