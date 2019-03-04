@@ -2,7 +2,7 @@
     <div class="sidebar">
         <el-card class="toptitle" body-style="padding:0px">
             <div class="blog-author">
-                <b><a class="bloger-title" :href="info.myHost">{{ info.name }}'s Blog</a></b>
+                <b><a class="bloger-title" v-if="info.name" :href="info.myHost">{{ info.name }}'s Blog</a></b>
             </div>
             <div class="side-bar">
                 <el-menu class="el-menu-vertical-demo">
