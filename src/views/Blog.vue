@@ -57,13 +57,31 @@ export default {
     },
     methods: {
         encourage () {
-            let msg = 'Thanks for your encouragement'
-            this.showMgs(msg, 'success')
+            let id = this.$route.params.id
+            let params = {"id": id}
+            Http('PUT', 'like', params).then ( res => {
+                if (res.data.code === 200) {
+                    let msg = 'Thanks for your encouragement'
+                    this.showMgs(msg, 'success')
+                } else {
+                    let msg = res.data.msg || '请求错误，请重试'
+                    this.showMgs(msg, 'error')
+                }
+            })
         },
 
         workHard() {
-            let msg = 'I will keep working hard'
-            this.showMgs(msg, 'success')
+            let id = this.$route.params.id
+            let params = {"id": id}
+            Http('PUT', 'dislike', params).then ( res => {
+                if (res.data.code === 200) {
+                    let msg = 'I will keep working hard'
+                    this.showMgs(msg, 'success')
+                } else {
+                    let msg = res.data.msg || '请求错误，请重试'
+                    this.showMgs(msg, 'error')
+                }
+            })
         },
 
         showMgs(msg = '', type = '') {
