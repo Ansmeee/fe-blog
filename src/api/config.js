@@ -5,8 +5,6 @@ export default {
         "bloggerInfo": "/blogger/info",
         "blogList": "/blog/list",
         "classList": "/class/list",
-        "blog": "/blog",
-        "like": "/blog/like",
-        "dislike": "/blog/dislike"
+        "blog": "/blog"
     }
 }
