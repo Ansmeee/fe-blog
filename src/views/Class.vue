@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.blogs.total" class="class">
+  <div class="class">
       <el-card class="blog-search-bar">
           <el-input
             class="blog-search-input"
@@ -19,22 +19,30 @@
             <i class="iconfont icon-sousuo"></i>
           </el-button>
       </el-card>
-      <el-card class="blog-list">
-          <p class="blog-item" v-for="blog in blogs.list" :key="blog.id">
-              <router-link :to="{ name: 'blog', params: { id: blog.id } }">
-                  {{ blog.title }}
-              </router-link>
-          </p>
-      </el-card>
-      <el-pagination
-          background
-          layout="prev, pager, next"
-          :page-size="5"
-          :total="blogs.total"
-          @current-change="this.currentPageChange">
-      </el-pagination>
+      <div v-if="this.blogs.total" class="blog-list">
+        <el-card>
+            <p class="blog-item" v-for="blog in blogs.list" :key="blog.id">
+                <router-link :to="{ name: 'blog', params: { id: blog.id } }">
+                    {{ blog.title }}
+                </router-link>
+            </p>
+        </el-card>
+        <el-pagination
+            class="pagination"
+            background
+            layout="prev, pager, next"
+            :page-size="5"
+            :total="blogs.total"
+            @current-change="this.currentPageChange">
+        </el-pagination>
+      </div>
+      <div v-else-if="this.blogs.total == 0" class="blog-list">
+        <err-page ></err-page>
+      </div>
+      <div v-else class="blog-list">
+        <loading-page ></loading-page>
+      </div>
   </div>
-  <err-page v-else></err-page>
 </template>
 
 <script>
@@ -42,10 +50,12 @@ import { Card, Menu, MenuItem, Pagination, Input, Button } from 'element-ui'
 
 import { Http } from '../api/http.js'
 import ErrPage from '../components/ErrPage'
+import LoadingPage from '../components/LoadingPage'
 export default {
     name: 'Class',
     components: {
         'ErrPage': ErrPage,
+        'LoadingPage': LoadingPage,
         [Card.name]: Card,
         [Menu.name]: Menu,
         [MenuItem.name]: MenuItem,
@@ -56,10 +66,7 @@ export default {
     data () {
         return {
             blogSearchValue: '',
-            blogs: {
-                total: 0,
-                list: []
-            }
+            blogs: {}
         }
     },
     mounted () {
@@ -88,8 +95,7 @@ export default {
                 'perpage': perpage
             }
             Http('GET', 'classList', params).then( res => {
-                this.blogs.total = res.data.content.total
-                this.blogs.list  = res.data.content.list
+                this.blogs = res.data.content
             })
         }
     }
@@ -116,5 +122,8 @@ export default {
 .blog-item {
     text-align: left;
     color: #969696;
+}
+.pagination {
+    margin-top: 20px;
 }
 </style>

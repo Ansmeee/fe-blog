@@ -1,11 +1,11 @@
 <template>
-    <el-card class="err-page">Nothing . . .</el-card>
+    <el-card class="loading-page">Loading . . .</el-card>
 </template>
 
 <script>
 import { Card } from 'element-ui'
 export default {
-    name: 'ErrPage',
+    name: 'LoadingPage',
     components: {
         [Card.name]: Card
     }
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style scoped>
-.err-page {
+.loading-page {
     min-height: 300px;
     line-height: 300px;
     font-size: 25px;

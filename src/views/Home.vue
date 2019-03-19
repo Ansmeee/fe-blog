@@ -1,6 +1,7 @@
 <template>
-  <div v-if="this.blogs.total" class="home">
-      <el-card v-for="blog in blogs.list" :key="blog.id" class="blog-card">
+  <div  class="home">
+    <div v-if="this.blogs.total" class="blog-card">
+      <el-card v-for="blog in blogs.list" :key="blog.id" >
           <p class="home-blog-title">{{ blog.title }}</p>
           <p class="home-blog-info">
               <span><i class="iconfont icon-rili font-14"></i></span>
@@ -21,6 +22,7 @@
           </router-link></p>
       </el-card>
       <el-pagination
+          class="pagination"
           background
           layout="prev, pager, next"
           :page-size="5"
@@ -28,19 +30,24 @@
           @current-change="this.currentPageChange"
        >
       </el-pagination>
+    </div>
+    <div v-else-if="this.blogs.total == 0" class="blog-card"><err-page></err-page></div>
+    <div v-else class="blog-card"><loading-page></loading-page></div>
   </div>
-  <err-page v-else></err-page>
+  
 </template>
 
 <script>
 import { Card, Button, Pagination,Message } from 'element-ui'
 import { Http } from '../api/http.js'
 import ErrPage from '../components/ErrPage'
+import LoadingPage from '../components/LoadingPage'
 
 export default {
    name: 'Home',
    components: {
        'ErrPage': ErrPage,
+       'LoadingPage': LoadingPage,
        [Card.name]: Card,
        [Button.name]: Button,
        [Pagination.name]: Pagination,
@@ -129,5 +136,9 @@ export default {
 
 .home-blog-more {
     margin-top: 40px;
+}
+
+.pagination {
+    margin-top: 20px;
 }
 </style>
