@@ -64,7 +64,7 @@ export default {
     mounted () {
         Http('GET', 'blogger').then(res => {
             if (res.data.code === 200) {
-                this.blogger = res.data.content
+                this.blogger = res.data
             } else {
                 let msg = res.data.msg || '请求错误，请重试'
                 this.showMgs(msg, 'error')
