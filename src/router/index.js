@@ -6,6 +6,8 @@ import File from '@/views/File'
 import Blogger from '@/views/Blogger'
 import Blog from '@/views/Blog'
 
+import AdminBlog from '@/views/Admin/Blog'
+
 Vue.use(Router)
 
 export default new Router({
@@ -35,6 +37,11 @@ export default new Router({
             path: '/blog/:id',
             name: 'blog',
             component: Blog
+        },
+        {
+            path: '/admin/blog',
+            name: 'adminblog',
+            component: AdminBlog
         }
     ]
 })
