@@ -14,9 +14,9 @@
         class="admin-blog-content-keyword-tag" 
         type="info" 
         closable
-        v-for="keyword in keywords" 
+        v-for="(keyword, index) in keywords" 
         :key="keyword"
-        @close="removeKeyword(key)">
+        @close="removeKeyword(index)">
         {{ keyword }}
         
       </el-tag>
@@ -33,12 +33,22 @@
     </div>
     <div class="admin-blog-content-keyword">
       <span class="admin-blog-content-label">内容</span>
-      <el-input type="textarea" placeholder="请输入内容"></el-input>
+      <mavon-editor 
+        class="admin-blog-content-editor" 
+        :ishljs="true"
+        :boxShadow="false"
+        :tabSize="4"
+        @imgAdd="imgAddOpt"
+        @save="saveOpt">
+      </mavon-editor>
     </div>
   </el-card>
 </template>
 
 <script>
+import { mavonEditor } from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
 import { Http } from '../../api/http.js'
 
 import { Card, Button, Input, Tag, Message } from 'element-ui'
@@ -48,7 +58,10 @@ export default {
       return {
         keywords: [],
         inputVisible: false,
-        inputValue: ''
+        inputValue: '',
+        editorContent: '',
+        editorRender: '',
+        editorImgs: []
       }
     },
     components: {
@@ -56,7 +69,8 @@ export default {
         [Button.name]: Button,
         [Input.name]: Input,
         [Tag.name]: Tag,
-        [Message.name]: Message
+        [Message.name]: Message,
+        'mavon-editor': mavonEditor
     },
     methods: {
       handleClose(tag) {
@@ -79,8 +93,17 @@ export default {
         this.inputValue = '';
       }, 
 
-      removeKeyword(key) {
-        this.keywords.remove(key);
+      removeKeyword(index) {
+        this.keywords.splice(index, 1);
+      },
+
+      imgAddOpt(filename, file) {
+        this.editorImgs.push(file);
+      },
+
+      saveOpt(value, render) {
+        this.editorContent = value;
+        this.editorRender  = render;
       }
     }
 }
@@ -124,7 +147,11 @@ export default {
     line-height: 30px;
     margin-bottom: 20px;
   }
+  .admin-blog-content-editor {
 
-  .admin-blog-content-submit-btn {
+  }
+
+  .add-image-link-wrapper {
+    background-color: rgb(89, 93, 95);
   }
 </style>
