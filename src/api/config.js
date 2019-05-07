@@ -7,6 +7,7 @@ export default {
         "classList": "/class/list",
         "blog": "/blog",
         "like": "/blog/like",
-        "dislike": "/blog/dislike"
+        "dislike": "/blog/dislike",
+        "editBlog": "/admin/blog/edit"
     }
 }
