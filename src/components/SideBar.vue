@@ -1,79 +1,125 @@
 <template>
-    <div class="sidebar">
-        <el-card class="toptitle" body-style="padding:0px">
-            <div class="blog-author">
-                <b><a class="bloger-title" v-if="info.name" :href="info.myHost">{{ info.name }}'s Blog</a></b>
-            </div>
-            <div class="side-bar">
-                <el-menu class="el-menu-vertical-demo">
-                    <router-link v-for="menu in info.menus" :key="menu.id" :to="{ name: menu.url }">
-                        <el-menu-item index="1">
-                            <i :class="menu.icon"></i>
-                            <span slot="title">{{ menu.title }}</span>
-                        </el-menu-item>
-                    </router-link>
-                </el-menu>
-            </div>
-        </el-card>
+  <div class="sidebar">
+    <el-card class="toptitle" body-style="padding:0px">
+      <div class="blog-author">
+        <router-link class="bloger-title" :to="info.myHost" style="font-size: 16px"><b>{{ info.name }}'s Blog</b></router-link>
+      </div>
+      <div class="side-bar">
+        <el-menu class="el-menu-vertical-demo" router>
+          <el-menu-item v-for="menu in info.menus" :key="menu.id" :index="menu.index">
+            <i :class="menu.icon" style="font-size: 15px;"></i>
+            <span slot="title">{{ menu.title }}</span>
+          </el-menu-item>
+        </el-menu>
+      </div>
+    </el-card>
 
-        <el-card class="userinfo">
-            <div class="user-img">
-                <router-link :to="{ name: 'blogger' }">
-                    <img height="150px" width="150px" :src="info.icon">
-                </router-link>
-            </div>
-            <p><router-link :to="{ name: 'blogger' }"><b>{{ info.name }}</b></router-link></p>
-            <div class="user-blog">
-                <router-link v-for="blog in info.blogs" :key="blog.id" class="user-blog-outline" :to="{ name: blog.url }">
-                    <span>{{ blog.title }}</span>
-                    <span>{{ blog.total }}</span>
-                </router-link>
-            </div>
-        </el-card>
-    </div>
+    <el-card class="userinfo">
+      <div class="user-img">
+        <img height="150px" width="150px" src="../assets/images/logo.png" style="cursor: pointer">
+      </div>
+      <p>
+        <router-link :to="{ name: 'blogger' }"><b>{{ info.name }}</b></router-link>
+      </p>
+
+      <p style="font-size: 14px">{{ info.sign }}</p>
+      <p class="user-blog">
+        <span
+          class="user-blog-outline"
+          v-for="(blog, index) in info.blogs"
+          :key="index">
+          <span>{{ blog.name }}</span>
+          <span>{{ blog.amount }}</span>
+        </span>
+      </p>
+      <p class="user-github"><a href="https://github.com/Ansmee" target="_blank">
+        <img src="../assets/icons/github.svg" height="35px" width="35px">
+      </a></p>
+    </el-card>
+  </div>
 </template>
 
 <script>
-import { Http } from '../api/http.js'
+    import {Http} from '../api/http.js'
 
-import { Card, Menu, MenuItem } from 'element-ui'
-export default {
-    name: 'SideBar',
-    components: {
-        [ Card.name ]: Card,
-        [Menu.name]: Menu,
-        [MenuItem.name]: MenuItem
-    },
-    data () {
-        return {
-            info: {}
-        }
-    },
-    mounted () {
-      this.getInfo()
-    },
-    methods: {
-        getInfo () {
-            Http('GET', 'bloggerInfo').then(res => {
-                this.info = res.data.info
-            })
+    import {Card, Menu, MenuItem} from 'element-ui'
+
+    export default {
+        name: 'SideBar',
+        components: {
+            [Card.name]: Card,
+            [Menu.name]: Menu,
+            [MenuItem.name]: MenuItem
+        },
+        data() {
+            return {
+                info: {
+                    name: 'Ansme',
+                    sign: '心之所向，素履以往',
+                    icon: './logo.png',
+                    myHost: '/',
+                    myGithubHost: 'https://github.com/Ansmee',
+                    menus: [
+                        {
+                            icon: 'el-icon-document',
+                            title: '日志分享',
+                            index: '/blog'
+                        },
+                        {
+                            icon: 'el-icon-edit',
+                            title: '学习笔记',
+                            index: '/note'
+                        },
+                        {
+                            icon: 'el-icon-picture-outline',
+                            title: '摄影日记',
+                            index: '/photo'
+                        }
+                    ],
+                    blogs: [
+                        {
+                            name: '日志',
+                            amount: 0
+                        },
+                        {
+                            name: '笔记',
+                            amount: 0
+                        },
+                        {
+                            name: '摄影',
+                            amount: 0
+                        }
+                    ]
+                }
+            }
+        },
+        mounted() {
+            this.getInfo()
+        },
+        methods: {
+            getInfo() {
+                Http('GET', 'bloggerInfo').then(res => {
+                    this.info = res.data.info
+                })
+            }
         }
     }
-}
 </script>
 
 <style>
-.siderbar {
+  .siderbar {
     overflow: hidden;
-}
-.el-menu {
-    border-right: none;
-}
-.user-info-card {
-    margin-top: 10px;
-}
+  }
 
-.user-img {
+  .el-menu {
+    border-right: none;
+  }
+
+  .user-info-card {
+    margin-top: 10px;
+  }
+
+  .user-img {
     overflow: hidden;
     text-align: center;
     margin: auto;
@@ -81,28 +127,31 @@ export default {
     height: 150px;
     border-radius: 150px;
     border: 1px solid #ddd;
-}
+  }
 
-.user-blog {
+  .user-blog {
     overflow: hidden;
     text-align: center;
     font-size: 14px;
-}
+  }
 
-.user-blog-outline {
-    display: block;
-}
+  .user-blog-outline {
+    display: inline-block;
+    margin: 0px 5px;
+  }
 
-.toptitle {
+  .toptitle {
     margin-bottom: 15px;
-}
-.bloger-title {
+  }
+
+  .bloger-title {
     color: #fff;
-}
-.blog-author {
+  }
+
+  .blog-author {
     height: 80px;
     line-height: 80px;
     background-color: #222;
     color: #fff;
-}
+  }
 </style>
