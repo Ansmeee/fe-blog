@@ -43,8 +43,6 @@
 </template>
 
 <script>
-    import {Http} from '../api/http.js'
-
     import {Card, Menu, MenuItem} from 'element-ui'
 
     export default {
@@ -101,9 +99,6 @@
         },
         methods: {
             getInfo() {
-                Http('GET', 'bloggerInfo').then(res => {
-                    this.info = res.data.info
-                })
             }
         }
     }

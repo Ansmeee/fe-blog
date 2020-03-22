@@ -29,9 +29,10 @@
 
 <script>
     import {Card, Button, Pagination, Message} from 'element-ui'
-    import {Http} from '../api/http.js'
     import ErrPage from '../components/ErrPage'
     import LoadingPage from '../components/LoadingPage'
+
+    import blogApi from '../api/blog'
 
     export default {
         name: 'Home',
@@ -65,18 +66,8 @@
                     recently: true
                 }
                 this.loading = true
-                Http('GET', 'blog', params).then(res => {
-                    if (res.data.code === 200) {
-                        this.blog = res.data
-                        this.loading = false
-                    } else {
-                        this.loading = false
-                        let msg = res.data.msg || '请求失败了，再试一次吧！'
-                        this.$notify.error(msg)
-                    }
-                }).catch(() => {
-                    this.loading = false
-                    this.$notify.error('出现了一个预期之外的错误！');
+                blogApi.latestBlog(params).then((success) => {
+                    console.log(success)
                 })
             }
         }

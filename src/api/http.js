@@ -1,11 +1,21 @@
 import axios from 'axios'
 import config from './config.js'
 
-export const Http = (method, path, params = {}, data = {}) => {
-    return axios({
-        method: method,
-        url: config.host + config.path[path],
-        data: data,
-        params: params
+function Get(path, params) {
+    return axios.get(config.host + path, {params: params}).then(function (response) {
+        return {data: response.data}
+    }).catch(function (failure) {
     })
+}
+
+function Post(path, params) {
+    return axios.post(config.host + path, params).then(function (response) {
+        return {data: response.data}
+    }).catch(function (error) {
+    });
+}
+
+export default {
+    Get,
+    Post
 }
