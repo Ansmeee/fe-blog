@@ -2,7 +2,8 @@
   <div class="sidebar">
     <el-card class="toptitle" body-style="padding:0px">
       <div class="blog-author">
-        <router-link class="bloger-title" :to="info.myHost" style="font-size: 16px"><b>{{ info.name }}'s Blog</b></router-link>
+        <router-link class="bloger-title" :to="info.myHost" style="font-size: 16px"><b>{{ info.name }}'s Blog</b>
+        </router-link>
       </div>
       <div class="side-bar">
         <el-menu class="el-menu-vertical-demo" router>
@@ -32,9 +33,11 @@
           <span>{{ blog.amount }}</span>
         </span>
       </p>
-      <p class="user-github"><a href="https://github.com/Ansmee" target="_blank">
-        <img src="../assets/icons/github.svg" height="35px" width="35px">
-      </a></p>
+      <div class="user-github">
+        <a href="https://github.com/Ansmee" target="_blank">
+          <img src="../assets/icons/github.svg" height="35px" width="35px">
+        </a>
+      </div>
     </el-card>
   </div>
 </template>

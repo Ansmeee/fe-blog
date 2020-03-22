@@ -14,8 +14,8 @@ export default {
 
 <style scoped>
 .err-page {
-    min-height: 300px;
-    line-height: 300px;
+    min-height: 500px;
+    line-height: 500px;
     font-size: 25px;
     color: #969696;
 }

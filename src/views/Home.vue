@@ -1,144 +1,128 @@
 <template>
-  <div  class="home">
-    <div v-if="this.blogs.total" class="blog-card">
-      <el-card v-for="blog in blogs.list" :key="blog.id" >
-          <p class="home-blog-title">{{ blog.title }}</p>
-          <p class="home-blog-info">
-              <span><i class="iconfont icon-rili font-14"></i></span>
-              <span>发表于</span>
-              <span>{{ blog.date }}</span>
-              <span class="home-blog-info-split">|</span>
-              <span><i class="iconfont icon-liebiao font-14"></i></span>
-              <span>分类与</span>
-              <span>{{ blog.type }}</span>
-          </p>
-          <div class="home-blog-summary" v-html="blog.summary">
-          </div>
-          <p class="home-blog-more"><router-link :to="{ name: 'blog', params: { id: blog.id } }">
-              <el-button type="primary" size="medium">
-                  <span>阅读全文</span>
-                  <span><i class="iconfont icon-xia"></i></span>
-              </el-button>
-          </router-link></p>
+  <div class="home" :v-loading="loading">
+    <div v-if="this.blog.id" class="blog-card">
+      <el-card style="height: 100%;">
+        <p class="home-blog-title">{{ blog.title }}</p>
+        <p class="home-blog-info">
+          <span><i class="iconfont icon-rili font-14"></i></span>
+          <span>发表于</span>
+          <span>{{ blog.date }}</span>
+          <span class="home-blog-info-split">|</span>
+          <span><i class="iconfont icon-liebiao font-14"></i></span>
+          <span>分类与</span>
+          <span>{{ blog.type }}</span>
+        </p>
+        <div class="home-blog-summary" v-html="blog.summary">
+        </div>
       </el-card>
-      <el-pagination
-          class="pagination"
-          background
-          layout="prev, pager, next"
-          :page-size="5"
-          :total="blogs.total"
-          @current-change="this.currentPageChange"
-       >
-      </el-pagination>
+      <div class="pagination">
+        <el-button size="mini" type="primary" :disabled="!blog.hasLast" style="margin-right: 100px">上一篇</el-button>
+        <el-button size="mini" type="primary" :disabled="!blog.hasNext">下一篇</el-button>
+      </div>
     </div>
-    <div v-else-if="this.blogs.total == 0" class="blog-card"><err-page></err-page></div>
-    <div v-else class="blog-card"><loading-page></loading-page></div>
+    <div v-else class="blog-card">
+      <err-page></err-page>
+    </div>
   </div>
-  
+
 </template>
 
 <script>
-import { Card, Button, Pagination,Message } from 'element-ui'
-import { Http } from '../api/http.js'
-import ErrPage from '../components/ErrPage'
-import LoadingPage from '../components/LoadingPage'
+    import {Card, Button, Pagination, Message} from 'element-ui'
+    import {Http} from '../api/http.js'
+    import ErrPage from '../components/ErrPage'
+    import LoadingPage from '../components/LoadingPage'
 
-export default {
-   name: 'Home',
-   components: {
-       'ErrPage': ErrPage,
-       'LoadingPage': LoadingPage,
-       [Card.name]: Card,
-       [Button.name]: Button,
-       [Pagination.name]: Pagination,
-       [Message.name]: Message
-   },
-   data () {
-       return {
-           blogs: {
-               total: 0,
-               list: []
-           }
-       }
-   },
-   mounted () {
-      this.getBlogs()
-  },
-  methods: {
-      showMgs(msg = '', type = '') {
-          Message({
-              message: msg,
-              type: type,
-              center: true,
-              showClose: true
-          })
-      },
-
-      currentPageChange ( currentPage ) {
-          this.getBlogs(currentPage)
-      },
-
-      getBlogs (start = 1) {
-          let perpage = 10
-          let params = {
-              "start": start,
-              "perpage": perpage
-          }
-
-          Http('GET', 'blogList', params).then(res => {
-              if (res.data.code === 200) {
-                  this.blogs.total = res.data.content.total
-                  this.blogs.list  = res.data.content.list
-                  console.log(this.blogs.total)
-              } else {
-                  let msg = res.data.msg || '请求错误，请重试'
-                  this.showMgs(msg, 'error')
-              }
-          })
-      }
-  }
-}
+    export default {
+        name: 'Home',
+        components: {
+            'ErrPage': ErrPage,
+            'LoadingPage': LoadingPage,
+            [Card.name]: Card,
+            [Button.name]: Button,
+            [Pagination.name]: Pagination,
+            [Message.name]: Message
+        },
+        data() {
+            return {
+                loading: true,
+                blog: {
+                    id: 1,
+                    title: '',
+                    date: '',
+                    type: '',
+                    summary: '',
+                    hasLast: false,
+                }
+            }
+        },
+        mounted() {
+            this.getBlog()
+        },
+        methods: {
+            getBlog() {
+                let params = {
+                    recently: true
+                }
+                this.loading = true
+                Http('GET', 'blog', params).then(res => {
+                    if (res.data.code === 200) {
+                        this.blog = res.data
+                        this.loading = false
+                    } else {
+                        this.loading = false
+                        let msg = res.data.msg || '请求失败了，再试一次吧！'
+                        this.$notify.error(msg)
+                    }
+                }).catch(() => {
+                    this.loading = false
+                    this.$notify.error('出现了一个预期之外的错误！');
+                })
+            }
+        }
+    }
 </script>
 
 <style>
-.home {
+  .home {
     color: #555;
-    margin: 60px auto;
-}
+    height: 950px;
+  }
 
-.blog-card {
-    margin: 20px auto;
+  .blog-card {
+    height: 850px;
     padding-bottom: 20px;
-}
+  }
 
-.font-14 {
+  .font-14 {
     font-size: 14px;
-}
-.home-blog-title {
+  }
+
+  .home-blog-title {
     font-size: 20px;
     color: #555;
-}
+  }
 
-.home-blog-info {
+  .home-blog-info {
     font-size: 14px;
     color: #969696;
-}
+  }
 
-.home-blog-info-split {
+  .home-blog-info-split {
     margin: auto 5px;
-}
+  }
 
-.home-blog-summary {
+  .home-blog-summary {
     text-align: left;
     height: 200px;
     width: 100%;
-}
+  }
 
-.home-blog-more {
+  .home-blog-more {
     margin-top: 40px;
-}
+  }
 
-.pagination {
-    margin-top: 20px;
-}
+  .pagination {
+    margin-top: 50px;
+  }
 </style>
