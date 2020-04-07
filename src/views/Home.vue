@@ -6,13 +6,13 @@
         <p class="home-blog-info">
           <span><i class="iconfont icon-rili font-14"></i></span>
           <span>发表于</span>
-          <span>{{ blog.date }}</span>
+          <span>{{ blog.ctime }}</span>
           <span class="home-blog-info-split">|</span>
           <span><i class="iconfont icon-liebiao font-14"></i></span>
           <span>分类与</span>
-          <span>{{ blog.type }}</span>
+          <span>{{ blog.class }}</span>
         </p>
-        <div class="home-blog-summary" v-html="blog.summary">
+        <div class="home-blog-summary" v-html="blog.content">
         </div>
       </el-card>
       <div class="pagination">
@@ -28,50 +28,48 @@
 </template>
 
 <script>
-    import {Card, Button, Pagination, Message} from 'element-ui'
-    import ErrPage from '../components/ErrPage'
-    import LoadingPage from '../components/LoadingPage'
+  import {Card, Button, Pagination, Message} from 'element-ui'
+  import ErrPage from '../components/ErrPage'
+  import LoadingPage from '../components/LoadingPage'
 
-    import blogApi from '../api/blog'
+  import blogApi from '../api/blog'
 
-    export default {
-        name: 'Home',
-        components: {
-            'ErrPage': ErrPage,
-            'LoadingPage': LoadingPage,
-            [Card.name]: Card,
-            [Button.name]: Button,
-            [Pagination.name]: Pagination,
-            [Message.name]: Message
-        },
-        data() {
-            return {
-                loading: true,
-                blog: {
-                    id: 1,
-                    title: '',
-                    date: '',
-                    type: '',
-                    summary: '',
-                    hasLast: false,
-                }
-            }
-        },
-        mounted() {
-            this.getBlog()
-        },
-        methods: {
-            getBlog() {
-                let params = {
-                    recently: true
-                }
-                this.loading = true
-                blogApi.latestBlog(params).then((success) => {
-                    console.log(success)
-                })
-            }
+  export default {
+    name: 'Home',
+    components: {
+      'ErrPage': ErrPage,
+      'LoadingPage': LoadingPage,
+      [Card.name]: Card,
+      [Button.name]: Button,
+      [Pagination.name]: Pagination,
+      [Message.name]: Message
+    },
+    data() {
+      return {
+        loading: true,
+        blog: {
+          id: 1,
+          title: '',
+          date: '',
+          type: '',
+          summary: '',
+          hasLast: false,
         }
+      }
+    },
+    mounted() {
+      this.getBlog()
+    },
+    methods: {
+      getBlog() {
+        this.loading = true
+        blogApi.latestBlog().then(response => {
+          this.blog = response.data.blog
+        }, error => {
+        })
+      }
     }
+  }
 </script>
 
 <style>

@@ -4,11 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import Element from 'element-ui'
 import './assets/lib/element-ui/index.css'
 import './assets/lib/icon/iconfont.css'
-Vue.config.productionTip = false
 
-/* eslint-disable no-new */
+Vue.use(Element)
+
 new Vue({
   el: '#app',
   router,

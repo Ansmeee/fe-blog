@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
-import Class from '@/views/Class'
 import File from '@/views/File'
 import Blogger from '@/views/Blogger'
 import Blog from '@/views/Blog'
+import Note from '@/views/Note'
+
 
 import AdminBlog from '@/views/Admin/Blog'
 
@@ -19,14 +20,14 @@ export default new Router({
             component: Home
         },
         {
-            path: '/class',
-            name: 'class',
-            component: Class
+            path: '/blog',
+            name: 'blog',
+            component: Blog
         },
         {
-            path: '/file',
-            name: 'file',
-            component: File
+            path: '/note',
+            name: 'note',
+            component: Note
         },
         {
             path: '/blogger',

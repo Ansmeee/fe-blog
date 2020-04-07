@@ -1,5 +1,5 @@
 <template>
-    <el-card class="err-page">Nothing . . .</el-card>
+    <el-card class="err-page" shadow="never">Nothing . . .</el-card>
 </template>
 
 <script>
@@ -14,8 +14,8 @@ export default {
 
 <style scoped>
 .err-page {
-    min-height: 500px;
-    line-height: 500px;
+    height: 535px;
+    line-height: 535px;
     font-size: 25px;
     color: #969696;
 }
