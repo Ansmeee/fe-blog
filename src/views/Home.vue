@@ -1,20 +1,7 @@
 <template>
   <div class="home" :v-loading="loading">
     <div v-if="this.blog.id" class="blog-card">
-      <el-card style="height: 100%;">
-        <p class="home-blog-title">{{ blog.title }}</p>
-        <p class="home-blog-info">
-          <span><i class="iconfont icon-rili font-14"></i></span>
-          <span>发表于</span>
-          <span>{{ blog.ctime }}</span>
-          <span class="home-blog-info-split">|</span>
-          <span><i class="iconfont icon-liebiao font-14"></i></span>
-          <span>分类与</span>
-          <span>{{ blog.class }}</span>
-        </p>
-        <div class="home-blog-summary" v-html="blog.content">
-        </div>
-      </el-card>
+      <blog-page :blog="blog"></blog-page>
       <div class="pagination">
         <el-button size="mini" type="primary" :disabled="!blog.hasLast" style="margin-right: 100px">上一篇</el-button>
         <el-button size="mini" type="primary" :disabled="!blog.hasNext">下一篇</el-button>
@@ -28,21 +15,17 @@
 </template>
 
 <script>
-  import {Card, Button, Pagination, Message} from 'element-ui'
+  import BlogPage from '../components/BlogPage'
   import ErrPage from '../components/ErrPage'
   import LoadingPage from '../components/LoadingPage'
 
   import blogApi from '../api/blog'
-
   export default {
     name: 'Home',
     components: {
-      'ErrPage': ErrPage,
-      'LoadingPage': LoadingPage,
-      [Card.name]: Card,
-      [Button.name]: Button,
-      [Pagination.name]: Pagination,
-      [Message.name]: Message
+      BlogPage,
+      ErrPage,
+      LoadingPage
     },
     data() {
       return {
@@ -88,11 +71,14 @@
   }
 
   .home-blog-title {
-    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 24px;
     color: #555;
   }
 
   .home-blog-info {
+    margin-bottom: 40px;
     font-size: 14px;
     color: #969696;
   }

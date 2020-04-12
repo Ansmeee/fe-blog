@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
-import File from '@/views/File'
 import Blogger from '@/views/Blogger'
 import Blog from '@/views/Blog'
 import Note from '@/views/Note'
 
 
 import AdminBlog from '@/views/Admin/Blog'
+import AdminEdit from '@/views/Admin/Edit'
 
 Vue.use(Router)
 
@@ -43,6 +43,11 @@ export default new Router({
             path: '/admin/blog',
             name: 'adminblog',
             component: AdminBlog
-        }
+        },
+        {
+            path: '/admin/edit',
+            name: 'admin.edit',
+            component: AdminEdit
+        },
     ]
 })
