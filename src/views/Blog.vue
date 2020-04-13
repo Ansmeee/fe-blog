@@ -1,6 +1,6 @@
 <template>
   <div v-if="this.blog" class="blog">
-      <el-card class="blog-card">
+      <el-card class="blog-card" shadow="false">
           <p class="blog-title">{{ blog.title }}</p>
           <p class="blog-info">
               <span><i class="iconfont icon-rili font-14"></i></span>
@@ -111,7 +111,6 @@ export default {
 
 <style>
 .blog-card {
-    margin-top: 60px;
 }
 
 .blog-title {

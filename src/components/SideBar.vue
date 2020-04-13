@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <el-card class="toptitle" body-style="padding:0px">
+    <el-card class="toptitle" body-style="padding:0px" shadow="false">
       <div class="blog-author">
         <router-link class="bloger-title" :to="info.myHost" style="font-size: 16px"><b>{{ info.name }}'s Blog</b>
         </router-link>
@@ -14,8 +14,7 @@
         </el-menu>
       </div>
     </el-card>
-
-    <el-card>
+    <el-card shadow="false">
       <div class="user-img">
         <img height="150px" width="150px" src="../assets/images/logo.png" style="cursor: pointer">
       </div>

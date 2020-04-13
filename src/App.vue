@@ -1,49 +1,23 @@
 <template>
-  <div id="app" style="margin-top: 5px">
+  <div id="app">
     <div class="container">
-      <el-row :gutter="12" style="height: 850px">
-        <el-col :span="5">
-          <el-aside width="100%" class="siderbar">
-            <side-bar></side-bar>
-          </el-aside>
-        </el-col>
-        <el-col :span="19">
-          <el-main style="padding: 0px 5px">
-            <router-view/>
-          </el-main>
-        </el-col>
-      </el-row>
+      <router-view></router-view>
     </div>
-    <div class="footer mt50">
-      <el-row>
-        <el-col>
-          <el-footer height="100px" style="line-height: 100px; padding: 0px;">
-            <footer-content></footer-content>
-          </el-footer>
-        </el-col>
-      </el-row>
-    </div>
+    <el-footer class="footer" height="100px" style="line-height: 100px; padding: 0px;">
+      <footer-content></footer-content>
+    </el-footer>
   </div>
 </template>
 
 <script>
-    import SideBar from './components/SideBar'
-    import FooterContent from './components/Footer'
+  import FooterContent from './components/Footer'
 
-    import {Container, Aside, Main, Footer, Row, Col} from 'element-ui'
-
-    export default {
-        name: 'App',
-        components: {
-            SideBar, FooterContent,
-            [Container.name]: Container,
-            [Aside.name]: Aside,
-            [Footer.name]: Footer,
-            [Main.name]: Main,
-            [Row.name]: Row,
-            [Col.name]: Col
-        }
+  export default {
+    name: 'App',
+    components: {
+      FooterContent,
     }
+  }
 </script>
 
 <style>
@@ -57,7 +31,7 @@
     font-size: 14px;
     width: 100%;
     border-top: solid 3px #222;
-    margin: auto;
+    margin-top: 5px;
     background-color: #f5f7f9;
   }
 
@@ -68,13 +42,15 @@
 
   .container {
     width: 1200px;
-    height: 1000px;
-    text-align: center;
     margin: auto;
-    padding-top: 2px;
+    padding-top: 3px;
+    margin-bottom: 50px;
   }
 
   .footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
     background-color: #222;
     color: #fff;
   }

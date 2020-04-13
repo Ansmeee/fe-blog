@@ -58,11 +58,9 @@
 <style>
   .home {
     color: #555;
-    height: 950px;
   }
 
   .blog-card {
-    height: 850px;
     padding-bottom: 20px;
   }
 

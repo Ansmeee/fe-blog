@@ -15,8 +15,12 @@
         default: ''
       }
     },
+    methods: {
+    },
     components: {
       VueMarkdown
+    },
+    created() {
     }
   }
 </script>
