@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>powered by Ansme</p>
+    <span>powered by Ansme</span>
   </div>
 </template>
 

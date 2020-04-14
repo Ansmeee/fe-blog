@@ -3,20 +3,16 @@
 </template>
 
 <script>
-import { Card } from 'element-ui'
 export default {
-    name: 'ErrPage',
-    components: {
-        [Card.name]: Card
-    }
+    name: 'ErrPage'
 }
 </script>
 
 <style scoped>
 .err-page {
-    height: 535px;
-    line-height: 535px;
-    font-size: 25px;
+    height: 533px;
+    line-height: 533px;
+    font-size: 30px;
     color: #969696;
 }
 </style>

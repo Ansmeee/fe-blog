@@ -1,11 +1,7 @@
 <template>
   <div id="app">
-    <div class="container">
-      <router-view></router-view>
-    </div>
-    <el-footer class="footer" height="100px" style="line-height: 100px; padding: 0px;">
-      <footer-content></footer-content>
-    </el-footer>
+    <router-view class="container"></router-view>
+    <footer-content class="footer"></footer-content>
   </div>
 </template>
 
@@ -42,12 +38,15 @@
 
   .container {
     width: 1200px;
-    margin: auto;
-    padding-top: 3px;
-    margin-bottom: 50px;
+    min-height: 630px;
+    margin: 0px auto 100px;
+    padding: 3px 0px;
+
   }
 
   .footer {
+    height: 100px;
+    line-height: 100px;
     width: 100%;
     position: fixed;
     bottom: 0px;
@@ -55,7 +54,4 @@
     color: #fff;
   }
 
-  .mt50 {
-    margin-top: 50px;
-  }
 </style>

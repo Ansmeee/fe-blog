@@ -1,22 +1,18 @@
 <template>
-    <el-card class="loading-page">Loading . . .</el-card>
+  <el-card class="err-page" shadow="never">Loading . . .</el-card>
 </template>
 
 <script>
-import { Card } from 'element-ui'
-export default {
-    name: 'LoadingPage',
-    components: {
-        [Card.name]: Card
-    }
-}
+  export default {
+    name: 'ErrPage'
+  }
 </script>
 
 <style scoped>
-.loading-page {
-    min-height: 300px;
-    line-height: 300px;
-    font-size: 25px;
+  .err-page {
+    height: 533px;
+    line-height: 533px;
+    font-size: 30px;
     color: #969696;
-}
+  }
 </style>

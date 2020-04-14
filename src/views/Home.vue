@@ -1,11 +1,14 @@
 <template>
-  <div class="home" :v-loading="loading">
-    <div v-if="this.blog.id" class="blog-card">
-      <blog-page :blog="blog"></blog-page>
-      <div class="pagination">
-        <el-button size="mini" type="primary" :disabled="!blog.hasLast" style="margin-right: 100px">上一篇</el-button>
-        <el-button size="mini" type="primary" :disabled="!blog.hasNext">下一篇</el-button>
-      </div>
+  <div class="home">
+    <div v-if="loading">
+      <loading-page></loading-page>
+    </div>
+    <div v-else-if="blogs.length > 0" class="blog-card">
+      <blog-page
+        v-for="blog, index in blogs"
+        :key="index"
+        :blog="blog">
+      </blog-page>
     </div>
     <div v-else class="blog-card">
       <err-page></err-page>
@@ -20,6 +23,7 @@
   import LoadingPage from '../components/LoadingPage'
 
   import blogApi from '../api/blog'
+
   export default {
     name: 'Home',
     components: {
@@ -29,26 +33,26 @@
     },
     data() {
       return {
-        loading: true,
-        blog: {
-          id: 1,
-          title: '',
-          date: '',
-          type: '',
-          summary: '',
-          hasLast: false,
-        }
+        loading: false,
+        blogs: []
       }
     },
     mounted() {
-      this.getBlog()
+      this.loadData()
     },
     methods: {
-      getBlog() {
+      loadData() {
         this.loading = true
-        blogApi.latestBlog().then(response => {
-          this.blog = response.data.blog
+        blogApi.blogList().then(response => {
+          if (response.code == 200) {
+            this.blogs = response.data.blogs
+          } else {
+            this.$notify.error(response.msg || "请求失败了，再试一次吧")
+          }
+
+          this.loading = false
         }, error => {
+          this.$notify.error("网络好像出现了一点小问题")
         })
       }
     }
@@ -58,44 +62,5 @@
 <style>
   .home {
     color: #555;
-  }
-
-  .blog-card {
-    padding-bottom: 20px;
-  }
-
-  .font-14 {
-    font-size: 14px;
-  }
-
-  .home-blog-title {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #555;
-  }
-
-  .home-blog-info {
-    margin-bottom: 40px;
-    font-size: 14px;
-    color: #969696;
-  }
-
-  .home-blog-info-split {
-    margin: auto 5px;
-  }
-
-  .home-blog-summary {
-    text-align: left;
-    height: 200px;
-    width: 100%;
-  }
-
-  .home-blog-more {
-    margin-top: 40px;
-  }
-
-  .pagination {
-    margin-top: 50px;
   }
 </style>

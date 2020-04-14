@@ -134,7 +134,7 @@
   }
 
   .toptitle {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   .bloger-title {
