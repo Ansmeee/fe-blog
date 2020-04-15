@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="false">
+  <el-card shadow="never">
     <div class="home-blog-title">{{ blog.title }}</div>
     <div class="home-blog-info">
       <span><i class="iconfont icon-rili font-14"></i></span>

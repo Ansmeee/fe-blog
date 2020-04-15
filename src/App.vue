@@ -24,7 +24,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    font-size: 14px;
+    font-size: 15px;
     width: 100%;
     border-top: solid 3px #222;
     margin-top: 5px;
@@ -54,4 +54,10 @@
     color: #fff;
   }
 
+  .mr20 {
+    margin-right: 20px;
+  }
+  .mr50 {
+    margin-right: 50px;
+  }
 </style>

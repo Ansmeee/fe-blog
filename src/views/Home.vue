@@ -4,11 +4,13 @@
       <loading-page></loading-page>
     </div>
     <div v-else-if="blogs.length > 0" class="blog-card">
-      <blog-page
-        v-for="blog, index in blogs"
-        :key="index"
-        :blog="blog">
-      </blog-page>
+      <el-card shadow="never" body-style="padding: 0px">
+        <blog-piece
+          v-for="blog, index in blogs"
+          :key="index"
+          :blog="blog">
+        </blog-piece>
+      </el-card>
     </div>
     <div v-else class="blog-card">
       <err-page></err-page>
@@ -19,6 +21,7 @@
 
 <script>
   import BlogPage from '../components/BlogPage'
+  import BlogPiece from '../components/BlogPiece'
   import ErrPage from '../components/ErrPage'
   import LoadingPage from '../components/LoadingPage'
 
@@ -28,6 +31,7 @@
     name: 'Home',
     components: {
       BlogPage,
+      BlogPiece,
       ErrPage,
       LoadingPage
     },
