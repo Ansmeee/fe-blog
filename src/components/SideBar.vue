@@ -1,20 +1,6 @@
 <template>
   <div class="sidebar">
-    <el-card class="toptitle" body-style="padding:0px" shadow="false">
-      <div class="blog-author">
-        <router-link class="bloger-title" :to="info.myHost" style="font-size: 16px"><b>{{ info.name }}'s Blog</b>
-        </router-link>
-      </div>
-      <div class="side-bar">
-        <el-menu class="el-menu-vertical-demo" router>
-          <el-menu-item v-for="menu in info.menus" :key="menu.id" :index="menu.index">
-            <i :class="menu.icon" style="font-size: 15px;"></i>
-            <span slot="title">{{ menu.title }}</span>
-          </el-menu-item>
-        </el-menu>
-      </div>
-    </el-card>
-    <el-card shadow="false">
+    <el-card shadow="never">
       <div class="user-img">
         <img height="150px" width="150px" src="../assets/images/logo.png" style="cursor: pointer">
       </div>
@@ -105,17 +91,22 @@
           } else {
             this.$notify.error(response.msg)
           }
-        }, error => {})
+        }, error => {
+        })
       }
     }
   }
 </script>
 
 <style>
+  .sidebar {
+    position: fixed;
+    width: 230px;
+  }
   .user-img {
     overflow: hidden;
     text-align: center;
-    margin: auto;
+    margin: 20px auto;
     width: 150px;
     height: 150px;
     border-radius: 150px;
@@ -134,17 +125,15 @@
   }
 
   .toptitle {
-    margin-bottom: 10px;
+    border: none;
+    margin-bottom: 90px;
   }
 
   .bloger-title {
     color: #fff;
   }
 
-  .blog-author {
-    height: 80px;
-    line-height: 80px;
-    background-color: #222;
-    color: #fff;
+  .user-github {
+    margin-bottom: 20px;
   }
 </style>

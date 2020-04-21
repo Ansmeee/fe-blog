@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view class="container"></router-view>
-    <footer-content class="footer"></footer-content>
+<!--    <footer-content class="footer"></footer-content>-->
   </div>
 </template>
 
@@ -26,8 +26,6 @@
     color: #2c3e50;
     font-size: 15px;
     width: 100%;
-    border-top: solid 3px #222;
-    margin-top: 5px;
     background-color: #f5f7f9;
   }
 
@@ -38,10 +36,7 @@
 
   .container {
     width: 1200px;
-    min-height: 630px;
     margin: 0px auto 100px;
-    padding: 3px 0px;
-
   }
 
   .footer {
