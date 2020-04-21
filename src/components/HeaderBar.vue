@@ -7,9 +7,9 @@
         </router-link>
       </div>
 
-      <el-menu class="el-menu-demo search-con-menu" mode="horizontal" router>
+      <el-menu class="el-menu-demo search-con-menu" mode="horizontal" router @select="menuChange">
         <el-menu-item
-          style="height: 80px; line-height: 80px"
+          style="height: 70px; line-height: 70px"
           v-for="menu, index in info.menus"
           :key="index"
           :index="menu.index">
@@ -23,8 +23,8 @@
         class="search-con-input"
         placeholder="搜索你感兴趣的内容..."
         size="medium"
-        @change="blogSearchValueChange"
-        @keyup.enter.native="clickSearchBtn">
+        v-model="keywords"
+        @change="searchValueChange">
 
       </el-input>
 
@@ -40,32 +40,24 @@
       info: {
         type: Object,
         default() {
-          return {
-            name: 'Ansme',
-            myHost: '/',
-            menus: [
-              {
-                icon: 'el-icon-document',
-                title: '日志分享',
-                index: '/blog'
-              },
-              {
-                icon: 'el-icon-edit',
-                title: '学习笔记',
-                index: '/note'
-              },
-              {
-                icon: 'el-icon-picture-outline',
-                title: '摄影日记',
-                index: '/photo'
-              }
-            ]
-          }
+          return {}
         }
       }
     },
     data() {
       return {
+        keywords: ''
+      }
+    },
+    methods: {
+      menuChange(val) {
+        this.$emit('update:path', val)
+        this.$emit('change')
+      },
+
+      searchValueChange() {
+        this.$emit('update:keywords', this.keywords)
+        this.$emit('change')
       }
     },
     components: {}
@@ -74,26 +66,26 @@
 
 <style scoped>
   .search-con {
-    height: 80px;
+    height: 70px;
     width: 1198px;
-    line-height: 80px;
+    line-height: 70px;
     text-align: left;
     position: fixed;
   }
 
   .blog-author {
     width: 229px;
-    height: 80px;
+    height: 70px;
     text-align: center;
-    line-height: 80px;
+    line-height: 70px;
     margin-right: 5px;
     background-color: #222;
     color: #fff;
   }
 
   .search-con-input {
-    width: 450px;
-    margin-left: 100px;
+    width: 400px;
+    margin-left: 150px;
   }
 
   .search-con-menu {

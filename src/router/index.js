@@ -33,13 +33,18 @@ export default new Router({
         },
         {
           path: '/blog',
-          name: 'blog',
-          component: Blog
+          name: 'home.blog',
+          component: Home
         },
         {
           path: '/note',
-          name: 'note',
-          component: Note
+          name: 'home.note',
+          component: Home
+        },
+        {
+          path: '/photo',
+          name: 'home.photo',
+          component: Home
         },
         {
           path: '/blogger',
