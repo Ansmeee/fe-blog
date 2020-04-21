@@ -19,11 +19,13 @@
       </el-menu>
 
       <el-input
+        suffix-icon="el-icon-search"
         class="search-con-input"
         placeholder="搜索你感兴趣的内容..."
         size="medium"
         @change="blogSearchValueChange"
         @keyup.enter.native="clickSearchBtn">
+
       </el-input>
 
     </div>
@@ -84,14 +86,14 @@
     height: 80px;
     text-align: center;
     line-height: 80px;
-    /*margin-right: 30px;*/
+    margin-right: 5px;
     background-color: #222;
     color: #fff;
   }
 
   .search-con-input {
-    width: 400px;
-    margin-left: 90px;
+    width: 450px;
+    margin-left: 100px;
   }
 
   .search-con-menu {
