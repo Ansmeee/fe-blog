@@ -1,7 +1,11 @@
 <template>
   <div class="blog-piece">
-    <div style="font-size: 18px"><b>{{ blog.title }}</b></div>
-    <div style="margin: 10px 0px; line-height: 25px">{{ blog.summary }}</div>
+    <div style="font-size: 18px" @click="viewBlog">
+      <b>{{ blog.title }}</b>
+    </div>
+    <div style="margin: 10px 0px; line-height: 25px">
+      {{ blog.summary }}
+    </div>
     <div style="display: flex; color: #969696;">
       <el-button type="text" class="mr20" style="color: #969696;">
         <span><i class="iconfont icon-message_fill icon"></i></span>
@@ -34,10 +38,11 @@
         }
       }
     },
-    data() {
-      return {}
-    },
-    created() {}
+    methods: {
+      viewBlog() {
+        this.$emit('click')
+      }
+    }
   }
 </script>
 

@@ -3,7 +3,7 @@
     <el-header class="header-con" style="height: 70px">
       <header-bar
         :info="info"
-        :path.sync="filterForm.path"
+        :type.sync="filterForm.type"
         :keywords.sync="filterForm.keywords"
         @change="filterFormChange">
       </header-bar>
@@ -36,7 +36,7 @@
                 v-for="blog, index in blogs"
                 :key="index"
                 :blog="blog"
-                @click.native="viewBlog(blog.id, index)">
+                @click="viewBlog(blog.id, index)">
               </blog-piece>
             </el-card>
           </div>
@@ -69,7 +69,7 @@
         loading: false,
         filterForm: {
           keywords: '',
-          path: ''
+          type: ''
         },
         nextBlog: {},
         lastBlog: {},

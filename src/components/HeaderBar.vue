@@ -1,7 +1,7 @@
 <template>
   <el-card class="search-con" body-style="padding:0px;">
     <div style="display: flex;">
-      <div class="blog-author">
+      <div class="blog-author" @click="goHome">
         <router-link class="bloger-title" :to="info.myHost" style="font-size: 16px">
           <b>{{ info.name }}'s Blog</b>
         </router-link>
@@ -50,8 +50,13 @@
       }
     },
     methods: {
+      goHome() {
+        this.$emit('update:type', '')
+        this.$emit('change')
+      },
+
       menuChange(val) {
-        this.$emit('update:path', val)
+        this.$emit('update:type', val)
         this.$emit('change')
       },
 

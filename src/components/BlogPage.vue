@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="never">
+  <el-card shadow="never" style="min-height: 533px;">
     <div>
       <el-button
         style="float: left"
@@ -7,13 +7,13 @@
         @click="backToList">
         返回列表
       </el-button>
-      <el-button
-        :disabled="nextBlog.id ? false : true"
-        @click="goToNext"
-        style="float: right"
-        size="mini">
-        下一篇: {{ nextBlog.id ? nextBlog.title : '没有了' }}
-      </el-button>
+<!--      <el-button-->
+<!--        :disabled="next.id ? false : true"-->
+<!--        @click="goToNext"-->
+<!--        style="float: right"-->
+<!--        size="mini">-->
+<!--        下一篇: {{ next.id ? next.title : '没有了' }}-->
+<!--      </el-button>-->
     </div>
     <div class="home-blog-title">{{ blog.title }}</div>
     <div class="home-blog-info">
@@ -60,7 +60,9 @@
     },
     data() {
       return {
-        blog: {}
+        blog: {},
+        next: {},
+        last: {}
       }
     },
     methods: {
@@ -74,6 +76,8 @@
     },
     created() {
       this.blog = this.currentBlog
+      this.next = this.nextBlog
+      this.last = this.lastBlog
     },
     components: {
       MarkDown
