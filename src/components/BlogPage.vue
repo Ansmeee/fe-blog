@@ -5,6 +5,7 @@
         style="float: left"
         size="mini"
         @click="backToList">
+        <i class="iconfont icon-fanhui" style="font-size: 12px"></i>
         返回列表
       </el-button>
     </div>
