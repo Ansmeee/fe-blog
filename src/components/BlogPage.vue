@@ -7,13 +7,6 @@
         @click="backToList">
         返回列表
       </el-button>
-<!--      <el-button-->
-<!--        :disabled="next.id ? false : true"-->
-<!--        @click="goToNext"-->
-<!--        style="float: right"-->
-<!--        size="mini">-->
-<!--        下一篇: {{ next.id ? next.title : '没有了' }}-->
-<!--      </el-button>-->
     </div>
     <div class="home-blog-title">{{ blog.title }}</div>
     <div class="home-blog-info">

@@ -24,6 +24,20 @@
               :last-blog.sync="lastBlog"
               :blog-visiable.sync="showBlogCon">
             </blog-page>
+            <div style="margin-top: 15px">
+              <el-button
+                @click="lastOne"
+                style="float: left"
+                size="mini">
+                上一篇：{{ lastBlog ? lastBlog.title : '没有了' }}
+              </el-button>
+              <el-button
+                @click="nextOne"
+                style="float: right"
+                size="mini">
+                下一篇：{{ nextBlog ? nextBlog.title : '没有了' }}
+              </el-button>
+            </div>
           </div>
         </div>
         <div class="list-con" v-else>
@@ -31,13 +45,14 @@
             <loading-page></loading-page>
           </div>
           <div v-else-if="blogs.length > 0" class="blog-card">
-            <el-card shadow="never" body-style="padding: 0px">
+            <el-card shadow="never" body-style="padding: 0px;" style="min-height: 533px">
               <blog-piece
                 v-for="blog, index in blogs"
                 :key="index"
                 :blog="blog"
                 @click="viewBlog(blog.id, index)">
               </blog-piece>
+              <div style="color: #969696; height: 100px; line-height: 100px">没有更多了。。。</div>
             </el-card>
           </div>
           <div v-else class="blog-card">
@@ -71,6 +86,7 @@
           keywords: '',
           type: ''
         },
+        currentIndex: 0,
         nextBlog: {},
         lastBlog: {},
         blog: {},
@@ -119,6 +135,7 @@
       viewBlog(id, index) {
         this.showBlogCon = true
 
+        this.currentIndex = index
         let lastIndex = index - 1
         let nextIndex = index + 1
 
@@ -126,6 +143,18 @@
         this.nextBlog = this.blogs[nextIndex]
 
         this.loadBlog(id)
+      },
+
+      nextOne() {
+        if (this.nextBlog) {
+          this.viewBlog(this.nextBlog.id, this.currentIndex + 1)
+        }
+      },
+
+      lastOne() {
+        if (this.lastBlog) {
+          this.viewBlog(this.lastBlog.id, this.currentIndex - 1)
+        }
       },
 
       loadBlog(id) {
