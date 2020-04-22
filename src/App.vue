@@ -36,7 +36,7 @@
 
   .container {
     width: 1200px;
-    margin: 0px auto 100px;
+    margin: auto;
   }
 
   .footer {

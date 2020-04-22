@@ -1,12 +1,10 @@
 <template>
   <div class="sidebar">
-    <el-card shadow="never">
+    <el-card style="margin-bottom: 10px">
       <div class="user-img">
         <img height="150px" width="150px" src="../assets/images/logo.png" style="cursor: pointer">
       </div>
-      <p>
-        <router-link :to="{ name: 'blogger' }"><b>{{ info.name }}</b></router-link>
-      </p>
+      <p><b>{{ info.name }}</b></p>
 
       <p style="font-size: 14px">{{ info.sign }}</p>
       <p class="user-blog">
@@ -22,6 +20,15 @@
         <a href="https://github.com/Ansmee" target="_blank">
           <img src="../assets/icons/github.svg" height="35px" width="35px">
         </a>
+      </div>
+    </el-card>
+
+    <el-card>
+      <div class="about-me">
+        <div>技术栈</div>
+        <div>Vue + Element</div>
+        <div>Golang + Gin</div>
+        <div>powered by {{ info.name }}</div>
       </div>
     </el-card>
   </div>
@@ -67,16 +74,13 @@
     margin: 0px 5px;
   }
 
-  .toptitle {
-    border: none;
-    margin-bottom: 90px;
-  }
-
-  .bloger-title {
-    color: #fff;
-  }
-
   .user-github {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+  }
+
+  .about-me {
+    line-height: 20px;
+    color: #8590a6;
+    font-size: 13px;
   }
 </style>

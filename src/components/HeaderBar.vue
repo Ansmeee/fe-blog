@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="never" class="search-con" body-style="padding:0px;">
+  <el-card class="search-con" body-style="padding:0px;">
     <div style="display: flex;">
       <div class="blog-author">
         <router-link class="bloger-title" :to="info.myHost" style="font-size: 16px">
@@ -73,12 +73,16 @@
     position: fixed;
   }
 
+  .bloger-title {
+    color: #fff;
+  }
+
   .blog-author {
     width: 229px;
     height: 70px;
     text-align: center;
     line-height: 70px;
-    margin-right: 5px;
+    margin-right: 10px;
     background-color: #222;
     color: #fff;
   }

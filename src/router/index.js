@@ -2,11 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Index from '../views/Index'
-import Home from '../views/Home'
-import Blogger from '../views/Blogger'
-import Blog from '../views/Blog'
-import Note from '../views/Note'
-
 
 import AdminBlog from '@/views/Admin/Blog'
 import AdminEdit from '@/views/Admin/Edit'
@@ -24,39 +19,22 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Index,
-      children: [
-        {
-          path: '',
-          name: 'home.home',
-          component: Home
-        },
-        {
-          path: '/blog',
-          name: 'home.blog',
-          component: Home
-        },
-        {
-          path: '/note',
-          name: 'home.note',
-          component: Home
-        },
-        {
-          path: '/photo',
-          name: 'home.photo',
-          component: Home
-        },
-        {
-          path: '/blogger',
-          name: 'blogger',
-          component: Blogger
-        },
-        {
-          path: '/blog/:id',
-          name: 'blog',
-          component: Blog
-        },
-      ]
+      component: Index
+    },
+    {
+      path: '/blog',
+      name: 'home.blog',
+      component: Index
+    },
+    {
+      path: '/note',
+      name: 'home.note',
+      component: Index
+    },
+    {
+      path: '/photo',
+      name: 'home.photo',
+      component: Index
     },
     {
       path: '/admin/blog',

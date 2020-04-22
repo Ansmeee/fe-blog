@@ -1,28 +1,58 @@
 <template>
+  <el-container>
+    <el-header class="header-con" style="height: 70px">
+      <header-bar
+        :info="info"
+        :path.sync="filterForm.path"
+        :keywords.sync="filterForm.keywords"
+        @change="filterFormChange">
+      </header-bar>
+    </el-header>
     <el-container>
-      <el-header class="header-con" style="height: 70px">
-        <header-bar
-          :info="info"
-          :path.sync="filterForm.path"
-          :keywords.sync="filterForm.keywords"
-          @change="loadData">
-        </header-bar>
-      </el-header>
-      <el-container>
-        <el-aside style="width: 230px;">
-          <side-bar :info="info"></side-bar>
-        </el-aside>
-        <el-main style="padding: 0px; margin-left: 10px">
-          <router-view></router-view>
-        </el-main>
-      </el-container>
-
+      <el-aside style="width: 230px;">
+        <side-bar :info="info"></side-bar>
+      </el-aside>
+      <el-main style="padding: 0px; margin-left: 10px; margin-bottom: 200px;">
+        <div class="blog-con" v-if="showBlogCon">
+          <div v-if="loading">
+            <loading-page></loading-page>
+          </div>
+          <div v-else>
+            <blog-page :blog="blog"></blog-page>
+          </div>
+        </div>
+        <div class="list-con" v-else>
+          <div v-if="loading">
+            <loading-page></loading-page>
+          </div>
+          <div v-else-if="blogs.length > 0" class="blog-card">
+            <el-card shadow="never" body-style="padding: 0px">
+              <blog-piece
+                v-for="blog, index in blogs"
+                :key="index"
+                :blog="blog"
+                @click.native="viewBlog(blog.id)">
+              </blog-piece>
+            </el-card>
+          </div>
+          <div v-else class="blog-card">
+            <err-page></err-page>
+          </div>
+        </div>
+      </el-main>
     </el-container>
+
+  </el-container>
 </template>
 
 <script>
   import homeApi from '../api/home'
+  import blogApi from '../api/blog'
 
+  import BlogPage from '../components/BlogPage'
+  import BlogPiece from '../components/BlogPiece'
+  import ErrPage from '../components/ErrPage'
+  import LoadingPage from '../components/LoadingPage'
   import SideBar from '../components/SideBar'
   import HeaderBar from '../components/HeaderBar'
 
@@ -30,10 +60,14 @@
     name: 'Home',
     data() {
       return {
+        showBlogCon: false,
+        loading: false,
         filterForm: {
           keywords: '',
           path: ''
         },
+        blog: {},
+        blogs: [],
         info: {
           name: 'Ansme',
           sign: '心之所向，素履以往',
@@ -75,7 +109,45 @@
       }
     },
     methods: {
+      viewBlog(id) {
+        this.showBlogCon = true
+        this.loadBlog(id)
+      },
+
+      loadBlog(id) {
+        this.loading = true
+        blogApi.blogDetail({id: id}).then(response => {
+          if (response.code == 200) {
+            this.blog = response.data.blog
+          } else {
+            this.$notify.error(response.msg || "请求失败了，再试一次吧")
+          }
+          this.loading = false
+        }, error => {
+          this.$notify.error("网络好像出现了一点小问题")
+        })
+      },
+
+      filterFormChange() {
+        this.showBlogCon = false
+        this.loadData()
+      },
+
       loadData() {
+        this.loading = true
+
+        let params = this.filterForm
+        blogApi.blogList(params).then(response => {
+          if (response.code == 200) {
+            this.blogs = response.data.blogs
+          } else {
+            this.$notify.error(response.msg || "请求失败了，再试一次吧")
+          }
+
+          this.loading = false
+        }, error => {
+          this.$notify.error("网络好像出现了一点小问题")
+        })
       },
 
       loadInfo() {
@@ -90,10 +162,13 @@
       }
     },
     components: {
-      SideBar,HeaderBar
+      BlogPage, BlogPiece,
+      ErrPage, LoadingPage,
+      SideBar, HeaderBar
     },
     created() {
       this.loadInfo()
+      this.loadData()
     }
   }
 </script>

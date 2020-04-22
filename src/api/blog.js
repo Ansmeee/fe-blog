@@ -6,5 +6,8 @@ export default {
     },
     blogList(params) {
         return http.Get('/rest/blog/list', params)
+    },
+    blogDetail(params) {
+        return http.Get('/rest/blog/detail', params)
     }
 }
