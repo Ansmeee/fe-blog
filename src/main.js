@@ -7,6 +7,7 @@ import router from './router'
 import Element from 'element-ui'
 import './assets/lib/element-ui/index.css'
 import './assets/lib/icon/iconfont.css'
+var _ = require('lodash');
 
 Vue.use(Element)
 

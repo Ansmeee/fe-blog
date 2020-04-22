@@ -1,5 +1,20 @@
 <template>
   <el-card shadow="never">
+    <div>
+      <el-button
+        style="float: left"
+        size="mini"
+        @click="backToList">
+        返回列表
+      </el-button>
+      <el-button
+        :disabled="nextBlog.id ? false : true"
+        @click="goToNext"
+        style="float: right"
+        size="mini">
+        下一篇: {{ nextBlog.id ? nextBlog.title : '没有了' }}
+      </el-button>
+    </div>
     <div class="home-blog-title">{{ blog.title }}</div>
     <div class="home-blog-info">
       <span><i class="iconfont icon-rili font-14"></i></span>
@@ -16,15 +31,49 @@
 
 <script>
   import MarkDown from '../components/MarkDown'
+
   export default {
     name: "BlogPage",
     props: {
-      blog: {
+      blogVisiable: {
+        type: Boolean,
+        default: true
+      },
+      lastBlog: {
+        type: Object,
+        default: function () {
+          return {}
+        }
+      },
+      nextBlog: {
+        type: Object,
+        default: function () {
+          return {}
+        }
+      },
+      currentBlog: {
         type: Object,
         default: function () {
           return {}
         }
       }
+    },
+    data() {
+      return {
+        blog: {}
+      }
+    },
+    methods: {
+      backToList() {
+        this.$emit('update:blogVisiable', false)
+      },
+
+      goToNext() {
+
+      }
+    },
+    created() {
+      this.blog = this.currentBlog
     },
     components: {
       MarkDown
@@ -34,7 +83,7 @@
 
 <style scoped>
   .home-blog-title {
-    margin-top: 20px;
+    margin-top: 50px;
     margin-bottom: 20px;
     font-size: 24px;
     color: #555;

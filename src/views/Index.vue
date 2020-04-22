@@ -18,7 +18,12 @@
             <loading-page></loading-page>
           </div>
           <div v-else>
-            <blog-page :blog="blog"></blog-page>
+            <blog-page
+              :current-blog.sync="blog"
+              :next-blog.sync="nextBlog"
+              :last-blog.sync="lastBlog"
+              :blog-visiable.sync="showBlogCon">
+            </blog-page>
           </div>
         </div>
         <div class="list-con" v-else>
@@ -31,7 +36,7 @@
                 v-for="blog, index in blogs"
                 :key="index"
                 :blog="blog"
-                @click.native="viewBlog(blog.id)">
+                @click.native="viewBlog(blog.id, index)">
               </blog-piece>
             </el-card>
           </div>
@@ -66,6 +71,8 @@
           keywords: '',
           path: ''
         },
+        nextBlog: {},
+        lastBlog: {},
         blog: {},
         blogs: [],
         info: {
@@ -109,8 +116,15 @@
       }
     },
     methods: {
-      viewBlog(id) {
+      viewBlog(id, index) {
         this.showBlogCon = true
+
+        let lastIndex = index - 1
+        let nextIndex = index + 1
+
+        this.lastBlog = this.blogs[lastIndex]
+        this.nextBlog = this.blogs[nextIndex]
+
         this.loadBlog(id)
       },
 
