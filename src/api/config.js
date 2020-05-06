@@ -1,3 +1,3 @@
 export default {
-    host: "http://blog.ansme.cn",
+    host: "http://blog.ansme.vip",
 }

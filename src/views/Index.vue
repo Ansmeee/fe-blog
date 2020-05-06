@@ -220,6 +220,6 @@
     width: 1200px;
     height: 80px;
     margin-bottom: 10px;
-    padding: 0px;
+    padding: 0px !important;
   }
 </style>

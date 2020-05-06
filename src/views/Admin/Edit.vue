@@ -1,6 +1,7 @@
 <template>
   <div id="editor">
     <mavon-editor
+      @save="save"
       :ishljs = "true"
       style="height: 100%"
       v-model="content"></mavon-editor>
@@ -16,6 +17,11 @@
     data() {
       return {
         content: ''
+      }
+    },
+    methods: {
+      save(value, render) {
+        console.log(value, render)
       }
     },
     components: {

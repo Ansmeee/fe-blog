@@ -1,12 +1,22 @@
 <template>
-  <vue-markdown
-    :source="html"
-    class="html-con">
-  </vue-markdown>
+  <mavon-editor
+    class="html-con"
+    :subfield="false"
+    :defaultOpen="'preview'"
+    :toolbarsFlag="false"
+    :editable="false"
+    :scrollStyle="true"
+    :ishljs="true"
+    :previewBackground="'#fff'"
+    style="height: 100%; width: 100%; box-shadow: none;"
+    v-model="html">
+  </mavon-editor>
 </template>
 
 <script>
-  import VueMarkdown from 'vue-markdown'
+  import { mavonEditor } from 'mavon-editor'
+  import 'mavon-editor/dist/css/index.css'
+
   export default {
     name: "MarkDown",
     props: {
@@ -15,10 +25,9 @@
         default: ''
       }
     },
-    methods: {
-    },
+    methods: {},
     components: {
-      VueMarkdown
+      mavonEditor
     },
     created() {
     }
@@ -26,7 +35,7 @@
 </script>
 
 <style scoped>
-.html-con {
-  text-align: left;
-}
+  .html-con {
+    text-align: left;
+  }
 </style>

@@ -11,18 +11,18 @@
         <span><i class="iconfont icon-message_fill icon"></i></span>
         <span>评论</span>
       </el-button>
-      <el-button type="text" class="mr50" style="color: #969696;">
+      <el-button type="text" class="mr20" style="color: #969696;">
         <span><i class="iconfont icon-like_fill icon"></i></span>
         <span>喜欢</span>
       </el-button>
-      <div type="text" class="mr50 h-l-40">
+      <el-button type="text" class="mr20" style="color: #969696;">
         <span><i class="iconfont icon-liebiao icon"></i></span>
         <span>{{ blog.class }}</span>
-      </div>
-      <div type="text" class="h-l-40">
+      </el-button>
+      <el-button type="text" style="color: #969696;">
         <span><i class="iconfont icon-rili icon"></i></span>
         <span>{{ blog.ctime }}</span>
-      </div>
+      </el-button>
     </div>
   </div>
 </template>
