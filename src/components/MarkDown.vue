@@ -8,7 +8,7 @@
     :scrollStyle="true"
     :ishljs="true"
     :previewBackground="'#fff'"
-    style="height: 100%; width: 100%; box-shadow: none;"
+    style="height: 100%; width: 100%; box-shadow: none; font-size: 15px"
     v-model="html">
   </mavon-editor>
 </template>
