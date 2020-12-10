@@ -1,17 +1,13 @@
 <template>
   <div id="app">
     <router-view class="container"></router-view>
-<!--    <footer-content class="footer"></footer-content>-->
   </div>
 </template>
 
 <script>
-  import FooterContent from './components/Footer'
-
   export default {
     name: 'App',
     components: {
-      FooterContent,
     }
   }
 </script>

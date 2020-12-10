@@ -76,6 +76,7 @@
     line-height: 70px;
     text-align: left;
     position: fixed;
+    z-index: 20000;
   }
 
   .bloger-title {

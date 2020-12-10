@@ -9,5 +9,8 @@ export default {
     },
     blogDetail(params) {
         return http.Get('/rest/blog/detail', params)
+    },
+    submit(params) {
+        return http.Post('/rest/blog/submit', params)
     }
 }

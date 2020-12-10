@@ -5,10 +5,11 @@
     :defaultOpen="'preview'"
     :toolbarsFlag="false"
     :editable="false"
-    :scrollStyle="true"
     :ishljs="true"
+    fontSize="16px"
+    codeStyle="atom-one-light"
     :previewBackground="'#fff'"
-    style="height: 100%; width: 100%; box-shadow: none; font-size: 15px"
+    style="height: 100%; width: 100%; box-shadow: none;"
     v-model="html">
   </mavon-editor>
 </template>
@@ -34,8 +35,12 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .html-con {
     text-align: left;
+
+    code {
+      white-space: pre-wrap;
+    }
   }
 </style>
