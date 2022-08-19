@@ -7,18 +7,18 @@
       </el-form-item>
       <el-form-item prop="title" class="admin-blog-content-title">
         <span class="admin-blog-content-label">标题</span>
-        <el-input 
-          v-model="blogForm.title" 
+        <el-input
+          v-model="blogForm.title"
           placeholder="请输入标题">
         </el-input>
       </el-form-item>
       <el-form-item class="admin-blog-content-keyword">
         <span class="admin-blog-content-label">关键字</span>
-        <el-tag 
-          class="admin-blog-content-keyword-tag" 
-          type="info" 
+        <el-tag
+          class="admin-blog-content-keyword-tag"
+          type="info"
           closable
-          v-for="(keyword, index) in blogForm.keywords" 
+          v-for="(keyword, index) in blogForm.keywords"
           :key="keyword"
           @close="removeKeyword(index)">
           {{ keyword }}
@@ -36,8 +36,8 @@
       </el-form-item>
       <el-form-item class="admin-blog-content-keyword">
         <span class="admin-blog-content-label">内容</span>
-        <mavon-editor 
-          class="admin-blog-content-editor" 
+        <mavon-editor
+          class="admin-blog-content-editor"
           :ishljs="true"
           :boxShadow="false"
           :tabSize="4"
@@ -54,7 +54,7 @@
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-import { Http } from '../../api/http.js'
+import { Post } from '../../api/http.js'
 
 import { Form, FormItem, Card, Button, Input, Tag, Message } from 'element-ui'
 export default {
@@ -107,7 +107,7 @@ export default {
         }
         this.blogForm.inputVisible = false;
         this.blogForm.inputValue = '';
-      }, 
+      },
 
       removeKeyword(index) {
         this.blogForm.keywords.splice(index, 1);
@@ -121,7 +121,7 @@ export default {
         this.blogForm.editorContent = value;
         this.blogForm.editorRender  = render;
       },
-      
+
       submitBlog() {
         let params = {}
         let data = {
@@ -131,8 +131,6 @@ export default {
           'html': this.blogForm.editorRender
         }
 
-        Http('POST', 'editBlog', params, data).then( res => {
-        })
       }
     }
 }
@@ -142,7 +140,7 @@ export default {
   .admin-blog-content {
     text-align: left;
   }
-  
+
   .admin-blog-content-label {
     display: block;
     margin-bottom: 5px;
